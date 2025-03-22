@@ -1,4 +1,2 @@
 TRABALHO PRÁTICO:
-1 ;  1.0 ; -1 ;  -1.0 ; 1.99 ; 0.99 ; 1.0E05 ; 0.99E-05
-
-XXIII
+Isso eh um <HIDE>segredo</HIDE> e outro <HIDE>conteudo oculto</HIDE>.

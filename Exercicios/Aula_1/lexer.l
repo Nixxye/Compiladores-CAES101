@@ -18,6 +18,8 @@ IP 0|[1-9][0-9]?|[0-9]{2}|1[0-9]{2}|2[0-4][0-9]|25[0-5]
 [\+\-]?(0|([1-9]{d}*))((\.{d}+)(E[\+\-]?({d}+))?)?    printf("T1 - Numero real encontrado: %s\n", yytext);
 M?(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})  printf("T1 - Numero romano encontrado: %s\n", yytext);
 
+
+
 .|\n   {/* Ignora qualquer caractere não reconhecido */}
 %%
 /* ------------------------------------------- */
