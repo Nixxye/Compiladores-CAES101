@@ -1,2 +1,2 @@
 TRABALHO PRÁTICO:
-Isso eh um <HIDE>segredo</HIDE> e outro <HIDE>conteudo oculto</HIDE>.
+Isso eh um <CRIPTO>segredo</CRIPTO> e outro <CRIPTO>conteudo oculto</CRIPTO>.
