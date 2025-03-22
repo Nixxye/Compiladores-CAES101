@@ -1,2 +1,8 @@
-TRABALHO PRÁTICO:
-Isso eh um <CRIPTO>segredo</CRIPTO> e outro <CRIPTO>conteudo oculto</CRIPTO>.
+Begin
+    Integer $i;
+    $i = 0;
+    While $i < 10 Do
+        $i = $i + 1;
+        Print $i;
+    End
+End
