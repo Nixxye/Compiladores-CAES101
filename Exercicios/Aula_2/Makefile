@@ -4,9 +4,9 @@ OUTPUT_FILE = lexer
 
 # Regras
 all:
-	flex -o $(OUTPUT_FILE).yy.c $(LEXER_FILE)
+	flex -l -o $(OUTPUT_FILE).yy.c $(LEXER_FILE)
 	gcc -o $(OUTPUT_FILE) $(OUTPUT_FILE).yy.c -lfl
-	./$(OUTPUT_FILE) < ex.txt
+	./$(OUTPUT_FILE) < calculadora.txt
 
 # Se você quiser passar o nome do arquivo `.l` como parâmetro
 # Exemplo: make LEXER_FILE=outro_arquivo.l
