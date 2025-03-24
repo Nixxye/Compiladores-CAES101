@@ -1,11 +1,11 @@
 /*  Definições */
 %{
-    #include <stdio.h>
-    #include <math.h>
+#include <stdio.h>
+#include <math.h>
 %}
 d [0-9]
 l [a-zA-Z]
-IP 0|[1-9][0-9]?|[0-9]{2}|1[0-9]{2}|2[0-4][0-9]|25[0-5]
+IP 0|[1-9][0-9]?|1[0-9]{2}|2[0-4][0-9]|25[0-5]
 /* ------------------------------------------- */
 /* Regras */
 /* Ex 1: */
@@ -25,11 +25,11 @@ M?(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})  printf("T1 - Numero romano e
 /* ------------------------------------------- */
 /* Código */
 int main () {
-    printf("\n\nIniciando analisador:\n\n");
-    yylex(); 
-    return 0;
+printf("\n\nIniciando analisador:\n\n");
+yylex(); 
+return 0;
 }
 /* Encerra ao chegar no final do arquivo */
 int yywrap() {
-    return 1;
+return 1;
 }

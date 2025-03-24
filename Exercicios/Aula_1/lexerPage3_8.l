@@ -19,6 +19,10 @@ _[a-zA-Z]+ printf("FUNCAO ");
 -?[0-9]+ printf("NUMERO ");
 [a-zA-Z]+ printf("NOME ");
 #.*# printf("COMENTARIO ");
+\n printf("\n");
+(" "|\n|\t) printf("%s", yytext);  /*Imprime o resto do texto */
+\r 
+. printf("INVALIDO "); 
 
 
 

@@ -5,4 +5,10 @@ Begin
         $i = $i + 1;
         Print $i;
     End
+    #KK
+
+    _minhaFuncao
+        $j = 0
+
 End
+
