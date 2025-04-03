@@ -1,5 +1,5 @@
 # Variáveis
-LEXER_FILE = lexer.l
+LEXER_FILE = calculadora.l
 OUTPUT_FILE = lexer
 
 # Regras
