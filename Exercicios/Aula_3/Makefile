@@ -1,9 +1,14 @@
-# Regras
-all:
-	bison -d parser.y -o parser.tab.c
-	flex -l -o lexer.yy.c lexer.l
-	gcc parser.tab.c lexer.yy.c -Wall -o tinycompiler
-	./tinycompiler < test.txt
+all: calc
 
-# Se você quiser passar o nome do arquivo `.l` como parâmetro
-# Exemplo: make LEXER_FILE=outro_arquivo.l
+calc.tab.c calc.tab.h:	calc.y
+	bison -t -v -d calc.y
+
+lex.yy.c: calc.l calc.tab.h
+	flex calc.l
+
+calc: lex.yy.c calc.tab.c calc.tab.h
+	gcc -o calc calc.tab.c lex.yy.c
+	./calc
+
+clean:
+	rm calc calc.tab.c lex.yy.c calc.tab.h calc.output

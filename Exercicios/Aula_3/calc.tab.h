@@ -35,11 +35,11 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_PARSER_TAB_H_INCLUDED
-# define YY_YY_PARSER_TAB_H_INCLUDED
+#ifndef YY_YY_CALC_TAB_H_INCLUDED
+# define YY_YY_CALC_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -54,16 +54,16 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    VAL = 258,                     /* VAL  */
-    PLUS = 259,                    /* PLUS  */
-    MINUS = 260,                   /* MINUS  */
-    DIVIDE = 261,                  /* DIVIDE  */
-    TIMES = 262,                   /* TIMES  */
-    LEFT = 263,                    /* LEFT  */
-    RIGHT = 264,                   /* RIGHT  */
-    DONE = 265,                    /* DONE  */
-    VARIABLE = 266,                /* VARIABLE  */
-    EQUALS = 267                   /* EQUALS  */
+    T_INT = 258,                   /* T_INT  */
+    T_FLOAT = 259,                 /* T_FLOAT  */
+    T_PLUS = 260,                  /* T_PLUS  */
+    T_MINUS = 261,                 /* T_MINUS  */
+    T_MULTIPLY = 262,              /* T_MULTIPLY  */
+    T_DIVIDE = 263,                /* T_DIVIDE  */
+    T_LEFT = 264,                  /* T_LEFT  */
+    T_RIGHT = 265,                 /* T_RIGHT  */
+    T_NEWLINE = 266,               /* T_NEWLINE  */
+    T_QUIT = 267                   /* T_QUIT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -72,12 +72,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 21 "parser.y"
+#line 13 "calc.y"
 
-  double value;
-  int valueInt;
+	int ival;
+	float fval;
 
-#line 81 "parser.tab.h"
+#line 81 "calc.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -92,4 +92,4 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
+#endif /* !YY_YY_CALC_TAB_H_INCLUDED  */
