@@ -365,8 +365,8 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[26] =
     {   0,
-        0,    0,   14,   13,    1,    4,    9,   10,    7,    5,
-        6,    8,    3,   13,   13,    0,    3,    0,    0,    2,
+        0,    0,   14,   13,    1,    4,    7,    5,    6,    8,
+        3,    9,   10,   10,   10,    0,    3,    0,    0,    2,
         0,    0,   11,   12,    0
     } ;
 
@@ -375,17 +375,17 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    1,    1,    1,    1,    1,    1,    1,    4,
-        5,    6,    7,    1,    8,    9,   10,   11,   11,   11,
-       11,   11,   11,   11,   11,   11,   11,    1,    1,    1,
+        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    4,    5,    1,    6,    7,    8,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    1,    1,    1,
+       10,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,   11,   11,   11,   11,
 
-       12,    1,    1,    1,   13,    1,    1,    1,    1,    1,
-        1,    1,   14,    1,    1,   15,   16,    1,    1,   17,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+       12,   11,   11,   11,   13,   11,   11,   11,   11,   11,
+       11,   11,   14,   11,   11,   15,   16,   11,   11,   17,
+       11,   11,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -411,7 +411,7 @@ static const YY_CHAR yy_meta[18] =
 static const flex_int16_t yy_base[26] =
     {   0,
         0,    0,   30,   31,   31,   31,   31,   31,   31,   31,
-       31,   31,    9,   12,   12,   16,   10,   13,   12,   13,
+       11,   31,   31,   12,   12,   18,   12,   13,   12,   15,
         8,    7,   31,   31,   31
     } ;
 
@@ -424,8 +424,8 @@ static const flex_int16_t yy_def[26] =
 
 static const flex_int16_t yy_nxt[49] =
     {   0,
-        4,    5,    6,    7,    8,    9,   10,   11,    4,   12,
-       13,   14,    4,   15,    4,    4,    4,   16,   16,   17,
+        4,    5,    6,    7,    8,    9,    4,   10,   11,   12,
+       13,   14,   13,   15,   13,   13,   13,   16,   16,   17,
        17,   24,   23,   20,   22,   21,   20,   19,   18,   25,
         3,   25,   25,   25,   25,   25,   25,   25,   25,   25,
        25,   25,   25,   25,   25,   25,   25,   25
@@ -434,7 +434,7 @@ static const flex_int16_t yy_nxt[49] =
 static const flex_int16_t yy_chk[49] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,   13,   17,   13,
+        1,    1,    1,    1,    1,    1,    1,   11,   17,   11,
        17,   22,   21,   20,   19,   18,   16,   15,   14,    3,
        25,   25,   25,   25,   25,   25,   25,   25,   25,   25,
        25,   25,   25,   25,   25,   25,   25,   25
@@ -748,58 +748,58 @@ YY_RULE_SETUP
 case 2:
 YY_RULE_SETUP
 #line 15 "calc.l"
-{yylval.fval = atof(yytext); return T_FLOAT;}
+{yylval.fval = atof(yytext); return FLOAT;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 16 "calc.l"
-{yylval.ival = atoi(yytext); return T_INT;}
+{yylval.ival = atoi(yytext); return INT;}
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
 #line 17 "calc.l"
-{return T_NEWLINE;}
+{return NEWLINE;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 18 "calc.l"
-{return T_PLUS;}
+{return PLUS;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 19 "calc.l"
-{return T_MINUS;}
+{return MINUS;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 20 "calc.l"
-{return T_MULTIPLY;}
+{return MULTIPLY;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 21 "calc.l"
-{return T_DIVIDE;}
+{return DIVIDE;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 22 "calc.l"
-{return T_LEFT;}
+{return ASSIGN;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 23 "calc.l"
-{return T_RIGHT;}
+{yylval.sval = atoi(yytext); return VARIABLE;} // variáveis são letras mínusculas
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 24 "calc.l"
-{return T_QUIT;}
+{return QUIT;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 25 "calc.l"
-{return T_QUIT;}
+{return QUIT;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
