@@ -1,27 +1,63 @@
 %option noyywrap
-
 %{
-#include <stdio.h>
-
-#define YY_DECL int yylex()
-
+#include <ctype.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 #include "calc.tab.h"
-
+#include "calc.h"
 %}
 
 %%
 
-[ \t]	; // ignore all whitespace
-[0-9]+\.[0-9]+ 	{yylval.fval = atof(yytext); return FLOAT;}
-[0-9]+		{yylval.ival = atoi(yytext); return INT;}
-\n		{return NEWLINE;}
+[ \t]+  ; // ignora espaços
+
+\n  { return NEWLINE;}
+
+[0-9]+\.[0-9]+ {
+  yylval.NUM = strtof(yytext, NULL);
+
+  return NUM;
+}
+
+[0-9]+ {
+  yylval.NUM = strtof(yytext, NULL);
+
+  return NUM;
+}
+
 "+"		{return PLUS;}
 "-"		{return MINUS;}
 "*"		{return MULTIPLY;}
 "/"		{return DIVIDE;}
 "="		{return ASSIGN;}
-[a-z]   {yylval.sval = atoi(yytext); return VARIABLE;} // variáveis são letras mínusculas
+
 "exit"		{return QUIT;}
 "quit"		{return QUIT;}
+
+[a-zA-Z_][a-zA-Z0-9_]* {
+  static ptrdiff_t bufsize = 0;
+  static char *symbuf = 0;
+  ptrdiff_t i = 0;
+
+  // Copia nome do identificador
+  while (yytext[i]) {
+    if (bufsize <= i) {
+      bufsize = 2 * bufsize + 40;
+      symbuf = realloc(symbuf, bufsize);
+    }
+    symbuf[i] = yytext[i];
+    i++;
+  }
+  symbuf[i] = '\0';
+
+  symrec* s = getsym(symbuf);
+  if (!s) s = putsym(symbuf, VAR);
+
+  yylval.VAR = s;
+  return s->type;
+}
+
+.
 
 %%

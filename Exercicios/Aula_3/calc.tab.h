@@ -44,6 +44,12 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 1 "calc.y"
+
+  typedef struct symrec symrec;
+
+#line 53 "calc.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -54,9 +60,9 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    INT = 258,                     /* INT  */
-    FLOAT = 259,                   /* FLOAT  */
-    VARIABLE = 260,                /* VARIABLE  */
+    NUM = 258,                     /* NUM  */
+    VAR = 259,                     /* VAR  */
+    FUN = 260,                     /* FUN  */
     PLUS = 261,                    /* PLUS  */
     MINUS = 262,                   /* MINUS  */
     MULTIPLY = 263,                /* MULTIPLY  */
@@ -72,13 +78,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "calc.y"
+  float NUM;                               /* NUM  */
+  float expression;                        /* expression  */
+  symrec* VAR;                             /* VAR  */
+  symrec* FUN;                             /* FUN  */
 
-	int ival;
-	float fval;
-	char sval;
-
-#line 82 "calc.tab.h"
+#line 87 "calc.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

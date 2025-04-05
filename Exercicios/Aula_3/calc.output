@@ -1,4 +1,9 @@
-State 14 conflicts: 3 shift/reduce
+Terminals unused in grammar
+
+    FUN
+
+
+State 14 conflicts: 2 shift/reduce
 
 
 Grammar
@@ -10,32 +15,32 @@ Grammar
 
     3 line: NEWLINE
     4     | expression NEWLINE
-    5     | QUIT NEWLINE
+    5     | expression QUIT
+    6     | QUIT NEWLINE
 
-    6 expression: FLOAT
-    7           | INT
-    8           | VARIABLE
-    9           | expression expression PLUS
-   10           | expression expression MINUS
-   11           | expression expression MULTIPLY
-   12           | expression expression DIVIDE
-   13           | VARIABLE ASSIGN expression
+    7 expression: NUM
+    8           | VAR
+    9           | VAR ASSIGN expression
+   10           | expression expression PLUS
+   11           | expression expression MINUS
+   12           | expression expression MULTIPLY
+   13           | expression expression DIVIDE
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    INT <ival> (258) 7
-    FLOAT <fval> (259) 6
-    VARIABLE <sval> (260) 8 13
-    PLUS (261) 9
-    MINUS (262) 10
-    MULTIPLY (263) 11
-    DIVIDE (264) 12
-    ASSIGN (265) 13
-    NEWLINE (266) 3 4 5
-    QUIT (267) 5
+    NUM <float> (258) 7
+    VAR <symrec*> (259) 8 9
+    FUN <symrec*> (260)
+    PLUS (261) 10
+    MINUS (262) 11
+    MULTIPLY (263) 12
+    DIVIDE (264) 13
+    ASSIGN (265) 9
+    NEWLINE (266) 3 4 6
+    QUIT (267) 5 6
 
 
 Nonterminals, with rules where they appear
@@ -46,11 +51,11 @@ Nonterminals, with rules where they appear
         on left: 1 2
         on right: 0 2
     line (15)
-        on left: 3 4 5
+        on left: 3 4 5 6
         on right: 2
-    expression <ival> (16)
-        on left: 6 7 8 9 10 11 12 13
-        on right: 4 9 10 11 12 13
+    expression <float> (16)
+        on left: 7 8 9 10 11 12 13
+        on right: 4 5 9 10 11 12 13
 
 
 State 0
@@ -67,15 +72,14 @@ State 1
     0 $accept: calculation • $end
     2 calculation: calculation • line
 
-    $end      shift, and go to state 2
-    INT       shift, and go to state 3
-    FLOAT     shift, and go to state 4
-    VARIABLE  shift, and go to state 5
-    NEWLINE   shift, and go to state 6
-    QUIT      shift, and go to state 7
+    $end     shift, and go to state 2
+    NUM      shift, and go to state 3
+    VAR      shift, and go to state 4
+    NEWLINE  shift, and go to state 5
+    QUIT     shift, and go to state 6
 
-    line        go to state 8
-    expression  go to state 9
+    line        go to state 7
+    expression  go to state 8
 
 
 State 2
@@ -87,104 +91,103 @@ State 2
 
 State 3
 
-    7 expression: INT •
+    7 expression: NUM •
 
     $default  reduce using rule 7 (expression)
 
 
 State 4
 
-    6 expression: FLOAT •
+    8 expression: VAR •
+    9           | VAR • ASSIGN expression
 
-    $default  reduce using rule 6 (expression)
-
-
-State 5
-
-    8 expression: VARIABLE •
-   13           | VARIABLE • ASSIGN expression
-
-    ASSIGN  shift, and go to state 10
+    ASSIGN  shift, and go to state 9
 
     $default  reduce using rule 8 (expression)
 
 
-State 6
+State 5
 
     3 line: NEWLINE •
 
     $default  reduce using rule 3 (line)
 
 
+State 6
+
+    6 line: QUIT • NEWLINE
+
+    NEWLINE  shift, and go to state 10
+
+
 State 7
-
-    5 line: QUIT • NEWLINE
-
-    NEWLINE  shift, and go to state 11
-
-
-State 8
 
     2 calculation: calculation line •
 
     $default  reduce using rule 2 (calculation)
 
 
-State 9
+State 8
 
     4 line: expression • NEWLINE
-    9 expression: expression • expression PLUS
-   10           | expression • expression MINUS
-   11           | expression • expression MULTIPLY
-   12           | expression • expression DIVIDE
+    5     | expression • QUIT
+   10 expression: expression • expression PLUS
+   11           | expression • expression MINUS
+   12           | expression • expression MULTIPLY
+   13           | expression • expression DIVIDE
 
-    INT       shift, and go to state 3
-    FLOAT     shift, and go to state 4
-    VARIABLE  shift, and go to state 5
-    NEWLINE   shift, and go to state 12
+    NUM      shift, and go to state 3
+    VAR      shift, and go to state 4
+    NEWLINE  shift, and go to state 11
+    QUIT     shift, and go to state 12
 
     expression  go to state 13
 
 
-State 10
+State 9
 
-   13 expression: VARIABLE ASSIGN • expression
+    9 expression: VAR ASSIGN • expression
 
-    INT       shift, and go to state 3
-    FLOAT     shift, and go to state 4
-    VARIABLE  shift, and go to state 5
+    NUM  shift, and go to state 3
+    VAR  shift, and go to state 4
 
     expression  go to state 14
 
 
+State 10
+
+    6 line: QUIT NEWLINE •
+
+    $default  reduce using rule 6 (line)
+
+
 State 11
-
-    5 line: QUIT NEWLINE •
-
-    $default  reduce using rule 5 (line)
-
-
-State 12
 
     4 line: expression NEWLINE •
 
     $default  reduce using rule 4 (line)
 
 
+State 12
+
+    5 line: expression QUIT •
+
+    $default  reduce using rule 5 (line)
+
+
 State 13
 
-    9 expression: expression • expression PLUS
-    9           | expression expression • PLUS
-   10           | expression • expression MINUS
-   10           | expression expression • MINUS
-   11           | expression • expression MULTIPLY
-   11           | expression expression • MULTIPLY
-   12           | expression • expression DIVIDE
-   12           | expression expression • DIVIDE
+   10 expression: expression • expression PLUS
+   10           | expression expression • PLUS
+   11           | expression • expression MINUS
+   11           | expression expression • MINUS
+   12           | expression • expression MULTIPLY
+   12           | expression expression • MULTIPLY
+   13           | expression • expression DIVIDE
+   13           | expression expression • DIVIDE
 
-    INT       shift, and go to state 3
-    FLOAT     shift, and go to state 4
-    VARIABLE  shift, and go to state 5
+    NUM       shift, and go to state 3
+    VAR       shift, and go to state 4
     PLUS      shift, and go to state 15
     MINUS     shift, and go to state 16
     MULTIPLY  shift, and go to state 17
@@ -195,47 +198,45 @@ State 13
 
 State 14
 
-    9 expression: expression • expression PLUS
-   10           | expression • expression MINUS
-   11           | expression • expression MULTIPLY
-   12           | expression • expression DIVIDE
-   13           | VARIABLE ASSIGN expression •
+    9 expression: VAR ASSIGN expression •
+   10           | expression • expression PLUS
+   11           | expression • expression MINUS
+   12           | expression • expression MULTIPLY
+   13           | expression • expression DIVIDE
 
-    INT       shift, and go to state 3
-    FLOAT     shift, and go to state 4
-    VARIABLE  shift, and go to state 5
+    NUM  shift, and go to state 3
+    VAR  shift, and go to state 4
 
-    INT       [reduce using rule 13 (expression)]
-    FLOAT     [reduce using rule 13 (expression)]
-    VARIABLE  [reduce using rule 13 (expression)]
-    $default  reduce using rule 13 (expression)
+    NUM       [reduce using rule 9 (expression)]
+    VAR       [reduce using rule 9 (expression)]
+    $default  reduce using rule 9 (expression)
 
     expression  go to state 13
 
 
 State 15
 
-    9 expression: expression expression PLUS •
-
-    $default  reduce using rule 9 (expression)
-
-
-State 16
-
-   10 expression: expression expression MINUS •
+   10 expression: expression expression PLUS •
 
     $default  reduce using rule 10 (expression)
 
 
-State 17
+State 16
 
-   11 expression: expression expression MULTIPLY •
+   11 expression: expression expression MINUS •
 
     $default  reduce using rule 11 (expression)
 
 
-State 18
+State 17
 
-   12 expression: expression expression DIVIDE •
+   12 expression: expression expression MULTIPLY •
 
     $default  reduce using rule 12 (expression)
+
+
+State 18
+
+   13 expression: expression expression DIVIDE •
+
+    $default  reduce using rule 13 (expression)

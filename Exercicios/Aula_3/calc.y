@@ -1,31 +1,24 @@
-%{
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "calc.h"
-
-extern int yylex();
-extern int yyparse();
-extern FILE* yyin;
-
-void yyerror(const char* s);
-%}
-
-%union {
-	int ival;
-	float fval;
-	char sval;
+%code requires {
+  typedef struct symrec symrec;
 }
 
+%{
+  #include <stdio.h>  /* For printf, etc. */
+  #include <math.h>   /* For pow, used in the grammar. */
+  #include "calc.h"   /* Contains definition of 'symrec'. */
+  extern FILE *yyin;  /* Input file. */
+  int yylex (void);
+  void yyerror (char const *);
+%}
 
-%token<ival> INT
-%token<fval> FLOAT
-%token<sval> VARIABLE
+
+%define api.value.type union /* Generate YYSTYPE from these types: */
+%token <float>  NUM    /* Double precision number. */
+%token <symrec*> VAR FUN /* Symbol table pointer: variable/function. */
 %token PLUS MINUS MULTIPLY DIVIDE ASSIGN
 %token NEWLINE QUIT
+%nterm <float> expression
 
-
-%type<ival> expression
 
 %start calculation
 
@@ -35,22 +28,23 @@ calculation:
 	   | calculation line
 ;
 
-line: NEWLINE
-    | expression NEWLINE { printf("\tResult: %i\n", $1); }
-    | QUIT NEWLINE { printf("bye!\n"); exit(0); }
+line:
+	NEWLINE
+	| expression NEWLINE
+	| expression QUIT { printf("\tResult: %f\n", $1); exit(0); }
+	| QUIT NEWLINE { printf("bye!\n"); exit(0); }
 ;
 
-
-expression:       FLOAT            { $$ = $1; }
-	| INT              { $$ = $1; }
-	| VARIABLE         { $$ = $1->value.var; }
-	| expression expression PLUS    { $$ = $1 + $2; }
-	| expression expression MINUS   { $$ = $1 - $2; }
-	| expression expression MULTIPLY     { $$ = $1 * $2; }
-	| expression expression DIVIDE     { $$ = $1 / $2; }
-	| VARIABLE ASSIGN expression { $$ = $3; $1->value.var = $3; }
-;
-
+expression:
+	NUM                  { $$ = $1; }
+	| VAR                { $$ = $1->value.var; }
+	| VAR ASSIGN expression        { $$ = $3; $1->value.var = $3; }
+	| expression expression PLUS       { $$ = $1 + $2;  }
+	| expression expression MINUS        { $$ = $1 - $2;  }
+	| expression expression MULTIPLY       { $$ = $1 * $2; }
+	| expression expression DIVIDE       { $$ = $1 / $2;  }
+	;
+	/* End of grammar. */
 %%
 
 int main() {

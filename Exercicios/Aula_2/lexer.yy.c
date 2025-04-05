@@ -477,6 +477,7 @@ char *yytext_ptr;
 #line 1 "calculadora.l"
 /*  Definições */
 #line 5 "calculadora.l"
+    // ByGPT
     #include <stdio.h>
     #include <math.h>
     #include <stdlib.h>
@@ -550,10 +551,10 @@ char *yytext_ptr;
     }
     Stack s;
 
-#line 554 "lexer.yy.c"
+#line 555 "lexer.yy.c"
 /* ------------------------------------------- */
 /* Regras */
-#line 557 "lexer.yy.c"
+#line 558 "lexer.yy.c"
 
 #define INITIAL 0
 
@@ -770,9 +771,9 @@ YY_DECL
 		}
 
 	{
-#line 84 "calculadora.l"
+#line 85 "calculadora.l"
 
-#line 776 "lexer.yy.c"
+#line 777 "lexer.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -841,12 +842,12 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 85 "calculadora.l"
+#line 86 "calculadora.l"
 { push(&s, atof(yytext)); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 86 "calculadora.l"
+#line 87 "calculadora.l"
 {
     float y = pop(&s);
     float x = pop(&s);
@@ -873,15 +874,15 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 108 "calculadora.l"
+#line 109 "calculadora.l"
 {/* Ignora qualquer caractere não reconhecido */}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 109 "calculadora.l"
+#line 110 "calculadora.l"
 ECHO;
 	YY_BREAK
-#line 885 "lexer.yy.c"
+#line 886 "lexer.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1898,7 +1899,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 109 "calculadora.l"
+#line 110 "calculadora.l"
 
 /* ------------------------------------------- */
 /* Código */
