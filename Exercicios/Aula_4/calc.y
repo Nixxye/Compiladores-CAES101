@@ -18,7 +18,7 @@
 %token PLUS MINUS MULTIPLY DIVIDE ASSIGN IF THEN ELSE EQUAL AND OR NOT 
 %token <int> TRUEbool FALSEbool
 %token NEWLINE QUIT
-%nterm <float> expression
+%nterm <float> expression if_command
 %nterm <int> boolean
 
 
@@ -32,8 +32,10 @@ calculation:
 
 line:
 	NEWLINE
-	| expression NEWLINE
+	| expression NEWLINE { printf("\tResult: %f\n", $1); }
 	| expression QUIT { printf("\tResult: %f\n", $1); exit(0); }
+	| boolean NEWLINE { printf("\tResult: %d\n", $1); }
+	| if_command NEWLINE
 	| QUIT NEWLINE { printf("bye!\n"); exit(0); }
 ;
 
@@ -41,19 +43,23 @@ expression:
 	NUM                  { $$ = $1; }
 	| VAR                { $$ = $1->value.var; }
 	| VAR ASSIGN expression        { $$ = $3; $1->value.var = $3; }
-	| expression expression PLUS       { $$ = $1 + $2;  }
-	| expression expression MINUS        { $$ = $1 - $2;  }
-	| expression expression MULTIPLY       { $$ = $1 * $2; }
-	| expression expression DIVIDE       { $$ = $1 / $2;  }
+	| VAR ASSIGN boolean        { $$ = $3; $1->value.var = $3; }
+	| expression PLUS expression       { $$ = $1 + $3;  }
+	| expression MINUS expression       { $$ = $1 - $3;  }
+	| expression MULTIPLY expression      { $$ = $1 * $3; }
+	| expression DIVIDE expression       { $$ = $1 / $3;  }
 ;
 
 boolean:
 	TRUEbool              { $$ = 1; }
 	| FALSEbool           { $$ = 0; }
     | expression EQUAL expression { $$ = $1 == $3; }
+	| expression AND expression { $$ = $1 && $3; }
+	| expression OR expression { $$ = $1 || $3; }
+	| NOT expression { $$ = !$2; }
 ;
 if_command:
-	IF '(' boolean ')' '{' expression '}' { if($3){$6}}
+	IF '(' boolean ')' '{' expression '}' { $$ = $3 ? $6 : 0;}
 ;
 	/* End of grammar. */
 %%

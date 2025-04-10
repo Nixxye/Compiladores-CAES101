@@ -26,24 +26,24 @@
   return NUM;
 }
 
+"=="      {return EQUAL;}
+(?i:and)    { return AND; }
+(?i:or)     { return OR; }
+(?i:not)    { return NOT; }
+(?i:true)   { return TRUEbool; }
+(?i:false)  { return FALSEbool; }
+
 "+"		{return PLUS;}
 "-"		{return MINUS;}
 "*"		{return MULTIPLY;}
 "/"		{return DIVIDE;}
 "="		{return ASSIGN;}
 
-"exit"		{return QUIT;}
-"quit"		{return QUIT;}
-"if/i"    {return IF;}
-"then/i"  {return THEN;}
-"else/i"  {return ELSE;}
-
-"=="      {return EQUAL;}
-"and/i"   {return AND;}
-"or/i"    {return OR;}
-"not/i"   {return NOT;}
-"true"    {return TRUEbool;}
-"false"   {return FALSEbool;}
+(?i:exit)		{return QUIT;}
+(?i:quit)		{return QUIT;}
+(?i:if)    {return IF;}
+(?i:then)  {return THEN;}
+(?i:else)  {return ELSE;}
 
 [a-zA-Z_][a-zA-Z0-9_]* {
   static ptrdiff_t bufsize = 0;

@@ -89,12 +89,14 @@ union YYSTYPE
 {
   float NUM;                               /* NUM  */
   float expression;                        /* expression  */
+  float if_command;                        /* if_command  */
   int TRUEbool;                            /* TRUEbool  */
   int FALSEbool;                           /* FALSEbool  */
+  int boolean;                             /* boolean  */
   symrec* VAR;                             /* VAR  */
   symrec* FUN;                             /* FUN  */
 
-#line 98 "calc.tab.h"
+#line 100 "calc.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
