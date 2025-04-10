@@ -1,0 +1,283 @@
+Nonterminals useless in grammar
+
+    boolean
+    if_command
+
+
+Terminals unused in grammar
+
+    FUN
+    IF
+    THEN
+    ELSE
+    EQUAL
+    AND
+    OR
+    NOT
+    TRUEbool
+    FALSEbool
+    '('
+    ')'
+    '{'
+    '}'
+
+
+Rules useless in grammar
+
+   14 boolean: TRUEbool
+   15        | FALSEbool
+   16        | expression EQUAL expression
+
+   17 if_command: IF '(' boolean ')' '{' expression '}'
+
+
+State 14 conflicts: 2 shift/reduce
+
+
+Grammar
+
+    0 $accept: calculation $end
+
+    1 calculation: ε
+    2            | calculation line
+
+    3 line: NEWLINE
+    4     | expression NEWLINE
+    5     | expression QUIT
+    6     | QUIT NEWLINE
+
+    7 expression: NUM
+    8           | VAR
+    9           | VAR ASSIGN expression
+   10           | expression expression PLUS
+   11           | expression expression MINUS
+   12           | expression expression MULTIPLY
+   13           | expression expression DIVIDE
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40)
+    ')' (41)
+    '{' (123)
+    '}' (125)
+    error (256)
+    NUM <float> (258) 7
+    VAR <symrec*> (259) 8 9
+    FUN <symrec*> (260)
+    PLUS (261) 10
+    MINUS (262) 11
+    MULTIPLY (263) 12
+    DIVIDE (264) 13
+    ASSIGN (265) 9
+    IF (266)
+    THEN (267)
+    ELSE (268)
+    EQUAL (269)
+    AND (270)
+    OR (271)
+    NOT (272)
+    TRUEbool <int> (273)
+    FALSEbool <int> (274)
+    NEWLINE (275) 3 4 6
+    QUIT (276) 5 6
+
+
+Nonterminals, with rules where they appear
+
+    $accept (26)
+        on left: 0
+    calculation (27)
+        on left: 1 2
+        on right: 0 2
+    line (28)
+        on left: 3 4 5 6
+        on right: 2
+    expression <float> (29)
+        on left: 7 8 9 10 11 12 13
+        on right: 4 5 9 10 11 12 13
+
+
+State 0
+
+    0 $accept: • calculation $end
+
+    $default  reduce using rule 1 (calculation)
+
+    calculation  go to state 1
+
+
+State 1
+
+    0 $accept: calculation • $end
+    2 calculation: calculation • line
+
+    $end     shift, and go to state 2
+    NUM      shift, and go to state 3
+    VAR      shift, and go to state 4
+    NEWLINE  shift, and go to state 5
+    QUIT     shift, and go to state 6
+
+    line        go to state 7
+    expression  go to state 8
+
+
+State 2
+
+    0 $accept: calculation $end •
+
+    $default  accept
+
+
+State 3
+
+    7 expression: NUM •
+
+    $default  reduce using rule 7 (expression)
+
+
+State 4
+
+    8 expression: VAR •
+    9           | VAR • ASSIGN expression
+
+    ASSIGN  shift, and go to state 9
+
+    $default  reduce using rule 8 (expression)
+
+
+State 5
+
+    3 line: NEWLINE •
+
+    $default  reduce using rule 3 (line)
+
+
+State 6
+
+    6 line: QUIT • NEWLINE
+
+    NEWLINE  shift, and go to state 10
+
+
+State 7
+
+    2 calculation: calculation line •
+
+    $default  reduce using rule 2 (calculation)
+
+
+State 8
+
+    4 line: expression • NEWLINE
+    5     | expression • QUIT
+   10 expression: expression • expression PLUS
+   11           | expression • expression MINUS
+   12           | expression • expression MULTIPLY
+   13           | expression • expression DIVIDE
+
+    NUM      shift, and go to state 3
+    VAR      shift, and go to state 4
+    NEWLINE  shift, and go to state 11
+    QUIT     shift, and go to state 12
+
+    expression  go to state 13
+
+
+State 9
+
+    9 expression: VAR ASSIGN • expression
+
+    NUM  shift, and go to state 3
+    VAR  shift, and go to state 4
+
+    expression  go to state 14
+
+
+State 10
+
+    6 line: QUIT NEWLINE •
+
+    $default  reduce using rule 6 (line)
+
+
+State 11
+
+    4 line: expression NEWLINE •
+
+    $default  reduce using rule 4 (line)
+
+
+State 12
+
+    5 line: expression QUIT •
+
+    $default  reduce using rule 5 (line)
+
+
+State 13
+
+   10 expression: expression • expression PLUS
+   10           | expression expression • PLUS
+   11           | expression • expression MINUS
+   11           | expression expression • MINUS
+   12           | expression • expression MULTIPLY
+   12           | expression expression • MULTIPLY
+   13           | expression • expression DIVIDE
+   13           | expression expression • DIVIDE
+
+    NUM       shift, and go to state 3
+    VAR       shift, and go to state 4
+    PLUS      shift, and go to state 15
+    MINUS     shift, and go to state 16
+    MULTIPLY  shift, and go to state 17
+    DIVIDE    shift, and go to state 18
+
+    expression  go to state 13
+
+
+State 14
+
+    9 expression: VAR ASSIGN expression •
+   10           | expression • expression PLUS
+   11           | expression • expression MINUS
+   12           | expression • expression MULTIPLY
+   13           | expression • expression DIVIDE
+
+    NUM  shift, and go to state 3
+    VAR  shift, and go to state 4
+
+    NUM       [reduce using rule 9 (expression)]
+    VAR       [reduce using rule 9 (expression)]
+    $default  reduce using rule 9 (expression)
+
+    expression  go to state 13
+
+
+State 15
+
+   10 expression: expression expression PLUS •
+
+    $default  reduce using rule 10 (expression)
+
+
+State 16
+
+   11 expression: expression expression MINUS •
+
+    $default  reduce using rule 11 (expression)
+
+
+State 17
+
+   12 expression: expression expression MULTIPLY •
+
+    $default  reduce using rule 12 (expression)
+
+
+State 18
+
+   13 expression: expression expression DIVIDE •
+
+    $default  reduce using rule 13 (expression)
