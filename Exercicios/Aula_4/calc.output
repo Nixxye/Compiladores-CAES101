@@ -5,8 +5,8 @@ Terminals unused in grammar
 
 
 State 13 conflicts: 1 shift/reduce
-State 18 conflicts: 4 shift/reduce
-State 37 conflicts: 12 shift/reduce, 16 reduce/reduce
+State 18 conflicts: 12 shift/reduce
+State 38 conflicts: 12 shift/reduce, 16 reduce/reduce
 State 42 conflicts: 4 shift/reduce
 State 43 conflicts: 4 shift/reduce
 State 44 conflicts: 4 shift/reduce
@@ -47,15 +47,15 @@ Grammar
 
    18 boolean: TRUEbool
    19        | FALSEbool
-   20        | expression EQUAL expression
-   21        | expression LESS_EQUAL expression
-   22        | expression GREATER_EQUAL expression
-   23        | expression NOT_EQUAL expression
-   24        | expression LESS expression
-   25        | expression GREATER expression
-   26        | expression OR expression
-   27        | expression AND expression
-   28        | NOT expression
+   20        | NOT boolean
+   21        | expression EQUAL expression
+   22        | expression LESS_EQUAL expression
+   23        | expression GREATER_EQUAL expression
+   24        | expression NOT_EQUAL expression
+   25        | expression LESS expression
+   26        | expression GREATER expression
+   27        | expression OR expression
+   28        | expression AND expression
    29        | expression
 
    30 if_command: IF OPEN_PARENTHESIS boolean CLOSE_PARENTHESIS OPEN_BRACKETS expression CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
@@ -77,15 +77,15 @@ Terminals, with rules where they appear
     IF (266) 30 31
     THEN (267)
     ELSE (268) 30
-    EQUAL (269) 20
-    LESS (270) 24
-    GREATER (271) 25
-    LESS_EQUAL (272) 21
-    NOT_EQUAL (273) 23
-    GREATER_EQUAL (274) 22
-    AND (275) 27
-    OR (276) 26
-    NOT (277) 28
+    EQUAL (269) 21
+    LESS (270) 25
+    GREATER (271) 26
+    LESS_EQUAL (272) 22
+    NOT_EQUAL (273) 24
+    GREATER_EQUAL (274) 23
+    AND (275) 28
+    OR (276) 27
+    NOT (277) 20
     OPEN_BRACKETS (278) 30 31
     CLOSE_BRACKETS (279) 30 31
     OPEN_PARENTHESIS (280) 13 30 31
@@ -108,10 +108,10 @@ Nonterminals, with rules where they appear
         on right: 2
     expression <float> (34)
         on left: 9 10 11 12 13 14 15 16 17
-        on right: 4 5 11 13 14 15 16 17 20 21 22 23 24 25 26 27 28 29 30 31
+        on right: 4 5 11 13 14 15 16 17 21 22 23 24 25 26 27 28 29 30 31
     boolean <int> (35)
         on left: 18 19 20 21 22 23 24 25 26 27 28 29
-        on right: 6 12 30 31
+        on right: 6 12 20 30 31
     if_command <float> (36)
         on left: 30 31
         on right: 7
@@ -183,13 +183,17 @@ State 5
 
 State 6
 
-   28 boolean: NOT • expression
+   20 boolean: NOT • boolean
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
+    NOT               shift, and go to state 6
     OPEN_PARENTHESIS  shift, and go to state 7
+    TRUEbool          shift, and go to state 8
+    FALSEbool         shift, and go to state 9
 
     expression  go to state 18
+    boolean     go to state 19
 
 
 State 7
@@ -200,7 +204,7 @@ State 7
     VAR               shift, and go to state 4
     OPEN_PARENTHESIS  shift, and go to state 7
 
-    expression  go to state 19
+    expression  go to state 20
 
 
 State 8
@@ -228,7 +232,7 @@ State 11
 
     8 line: QUIT • NEWLINE
 
-    NEWLINE  shift, and go to state 20
+    NEWLINE  shift, and go to state 21
 
 
 State 12
@@ -246,30 +250,30 @@ State 13
    15           | expression • MINUS expression
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
-   20 boolean: expression • EQUAL expression
-   21        | expression • LESS_EQUAL expression
-   22        | expression • GREATER_EQUAL expression
-   23        | expression • NOT_EQUAL expression
-   24        | expression • LESS expression
-   25        | expression • GREATER expression
-   26        | expression • OR expression
-   27        | expression • AND expression
+   21 boolean: expression • EQUAL expression
+   22        | expression • LESS_EQUAL expression
+   23        | expression • GREATER_EQUAL expression
+   24        | expression • NOT_EQUAL expression
+   25        | expression • LESS expression
+   26        | expression • GREATER expression
+   27        | expression • OR expression
+   28        | expression • AND expression
    29        | expression •
 
-    PLUS           shift, and go to state 21
-    MINUS          shift, and go to state 22
-    MULTIPLY       shift, and go to state 23
-    DIVIDE         shift, and go to state 24
-    EQUAL          shift, and go to state 25
-    LESS           shift, and go to state 26
-    GREATER        shift, and go to state 27
-    LESS_EQUAL     shift, and go to state 28
-    NOT_EQUAL      shift, and go to state 29
-    GREATER_EQUAL  shift, and go to state 30
-    AND            shift, and go to state 31
-    OR             shift, and go to state 32
-    NEWLINE        shift, and go to state 33
-    QUIT           shift, and go to state 34
+    PLUS           shift, and go to state 22
+    MINUS          shift, and go to state 23
+    MULTIPLY       shift, and go to state 24
+    DIVIDE         shift, and go to state 25
+    EQUAL          shift, and go to state 26
+    LESS           shift, and go to state 27
+    GREATER        shift, and go to state 28
+    LESS_EQUAL     shift, and go to state 29
+    NOT_EQUAL      shift, and go to state 30
+    GREATER_EQUAL  shift, and go to state 31
+    AND            shift, and go to state 32
+    OR             shift, and go to state 33
+    NEWLINE        shift, and go to state 34
+    QUIT           shift, and go to state 35
 
     NEWLINE  [reduce using rule 29 (boolean)]
 
@@ -278,14 +282,14 @@ State 14
 
     6 line: boolean • NEWLINE
 
-    NEWLINE  shift, and go to state 35
+    NEWLINE  shift, and go to state 36
 
 
 State 15
 
     7 line: if_command • NEWLINE
 
-    NEWLINE  shift, and go to state 36
+    NEWLINE  shift, and go to state 37
 
 
 State 16
@@ -300,8 +304,8 @@ State 16
     TRUEbool          shift, and go to state 8
     FALSEbool         shift, and go to state 9
 
-    expression  go to state 37
-    boolean     go to state 38
+    expression  go to state 38
+    boolean     go to state 39
 
 
 State 17
@@ -316,7 +320,7 @@ State 17
     TRUEbool          shift, and go to state 8
     FALSEbool         shift, and go to state 9
 
-    expression  go to state 39
+    expression  go to state 18
     boolean     go to state 40
 
 
@@ -326,21 +330,52 @@ State 18
    15           | expression • MINUS expression
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
-   28 boolean: NOT expression •
+   21 boolean: expression • EQUAL expression
+   22        | expression • LESS_EQUAL expression
+   23        | expression • GREATER_EQUAL expression
+   24        | expression • NOT_EQUAL expression
+   25        | expression • LESS expression
+   26        | expression • GREATER expression
+   27        | expression • OR expression
+   28        | expression • AND expression
+   29        | expression •
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS           shift, and go to state 22
+    MINUS          shift, and go to state 23
+    MULTIPLY       shift, and go to state 24
+    DIVIDE         shift, and go to state 25
+    EQUAL          shift, and go to state 26
+    LESS           shift, and go to state 27
+    GREATER        shift, and go to state 28
+    LESS_EQUAL     shift, and go to state 29
+    NOT_EQUAL      shift, and go to state 30
+    GREATER_EQUAL  shift, and go to state 31
+    AND            shift, and go to state 32
+    OR             shift, and go to state 33
 
-    PLUS      [reduce using rule 28 (boolean)]
-    MINUS     [reduce using rule 28 (boolean)]
-    MULTIPLY  [reduce using rule 28 (boolean)]
-    DIVIDE    [reduce using rule 28 (boolean)]
-    $default  reduce using rule 28 (boolean)
+    PLUS           [reduce using rule 29 (boolean)]
+    MINUS          [reduce using rule 29 (boolean)]
+    MULTIPLY       [reduce using rule 29 (boolean)]
+    DIVIDE         [reduce using rule 29 (boolean)]
+    EQUAL          [reduce using rule 29 (boolean)]
+    LESS           [reduce using rule 29 (boolean)]
+    GREATER        [reduce using rule 29 (boolean)]
+    LESS_EQUAL     [reduce using rule 29 (boolean)]
+    NOT_EQUAL      [reduce using rule 29 (boolean)]
+    GREATER_EQUAL  [reduce using rule 29 (boolean)]
+    AND            [reduce using rule 29 (boolean)]
+    OR             [reduce using rule 29 (boolean)]
+    $default       reduce using rule 29 (boolean)
 
 
 State 19
+
+   20 boolean: NOT boolean •
+
+    $default  reduce using rule 20 (boolean)
+
+
+State 20
 
    13 expression: OPEN_PARENTHESIS expression • CLOSE_PARENTHESIS
    14           | expression • PLUS expression
@@ -348,21 +383,21 @@ State 19
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
 
-    PLUS               shift, and go to state 21
-    MINUS              shift, and go to state 22
-    MULTIPLY           shift, and go to state 23
-    DIVIDE             shift, and go to state 24
+    PLUS               shift, and go to state 22
+    MINUS              shift, and go to state 23
+    MULTIPLY           shift, and go to state 24
+    DIVIDE             shift, and go to state 25
     CLOSE_PARENTHESIS  shift, and go to state 41
 
 
-State 20
+State 21
 
     8 line: QUIT NEWLINE •
 
     $default  reduce using rule 8 (line)
 
 
-State 21
+State 22
 
    14 expression: expression PLUS • expression
 
@@ -373,7 +408,7 @@ State 21
     expression  go to state 42
 
 
-State 22
+State 23
 
    15 expression: expression MINUS • expression
 
@@ -384,7 +419,7 @@ State 22
     expression  go to state 43
 
 
-State 23
+State 24
 
    16 expression: expression MULTIPLY • expression
 
@@ -395,7 +430,7 @@ State 23
     expression  go to state 44
 
 
-State 24
+State 25
 
    17 expression: expression DIVIDE • expression
 
@@ -406,9 +441,9 @@ State 24
     expression  go to state 45
 
 
-State 25
+State 26
 
-   20 boolean: expression EQUAL • expression
+   21 boolean: expression EQUAL • expression
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
@@ -417,9 +452,9 @@ State 25
     expression  go to state 46
 
 
-State 26
+State 27
 
-   24 boolean: expression LESS • expression
+   25 boolean: expression LESS • expression
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
@@ -428,9 +463,9 @@ State 26
     expression  go to state 47
 
 
-State 27
+State 28
 
-   25 boolean: expression GREATER • expression
+   26 boolean: expression GREATER • expression
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
@@ -439,9 +474,9 @@ State 27
     expression  go to state 48
 
 
-State 28
+State 29
 
-   21 boolean: expression LESS_EQUAL • expression
+   22 boolean: expression LESS_EQUAL • expression
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
@@ -450,9 +485,9 @@ State 28
     expression  go to state 49
 
 
-State 29
+State 30
 
-   23 boolean: expression NOT_EQUAL • expression
+   24 boolean: expression NOT_EQUAL • expression
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
@@ -461,9 +496,9 @@ State 29
     expression  go to state 50
 
 
-State 30
+State 31
 
-   22 boolean: expression GREATER_EQUAL • expression
+   23 boolean: expression GREATER_EQUAL • expression
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
@@ -472,9 +507,9 @@ State 30
     expression  go to state 51
 
 
-State 31
+State 32
 
-   27 boolean: expression AND • expression
+   28 boolean: expression AND • expression
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
@@ -483,9 +518,9 @@ State 31
     expression  go to state 52
 
 
-State 32
+State 33
 
-   26 boolean: expression OR • expression
+   27 boolean: expression OR • expression
 
     NUM               shift, and go to state 3
     VAR               shift, and go to state 4
@@ -494,63 +529,63 @@ State 32
     expression  go to state 53
 
 
-State 33
+State 34
 
     4 line: expression NEWLINE •
 
     $default  reduce using rule 4 (line)
 
 
-State 34
+State 35
 
     5 line: expression QUIT •
 
     $default  reduce using rule 5 (line)
 
 
-State 35
+State 36
 
     6 line: boolean NEWLINE •
 
     $default  reduce using rule 6 (line)
 
 
-State 36
+State 37
 
     7 line: if_command NEWLINE •
 
     $default  reduce using rule 7 (line)
 
 
-State 37
+State 38
 
    11 expression: VAR ASSIGN expression •
    14           | expression • PLUS expression
    15           | expression • MINUS expression
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
-   20 boolean: expression • EQUAL expression
-   21        | expression • LESS_EQUAL expression
-   22        | expression • GREATER_EQUAL expression
-   23        | expression • NOT_EQUAL expression
-   24        | expression • LESS expression
-   25        | expression • GREATER expression
-   26        | expression • OR expression
-   27        | expression • AND expression
+   21 boolean: expression • EQUAL expression
+   22        | expression • LESS_EQUAL expression
+   23        | expression • GREATER_EQUAL expression
+   24        | expression • NOT_EQUAL expression
+   25        | expression • LESS expression
+   26        | expression • GREATER expression
+   27        | expression • OR expression
+   28        | expression • AND expression
    29        | expression •
 
-    PLUS           shift, and go to state 21
-    MINUS          shift, and go to state 22
-    MULTIPLY       shift, and go to state 23
-    DIVIDE         shift, and go to state 24
-    EQUAL          shift, and go to state 25
-    LESS           shift, and go to state 26
-    GREATER        shift, and go to state 27
-    LESS_EQUAL     shift, and go to state 28
-    NOT_EQUAL      shift, and go to state 29
-    GREATER_EQUAL  shift, and go to state 30
-    AND            shift, and go to state 31
-    OR             shift, and go to state 32
+    PLUS           shift, and go to state 22
+    MINUS          shift, and go to state 23
+    MULTIPLY       shift, and go to state 24
+    DIVIDE         shift, and go to state 25
+    EQUAL          shift, and go to state 26
+    LESS           shift, and go to state 27
+    GREATER        shift, and go to state 28
+    LESS_EQUAL     shift, and go to state 29
+    NOT_EQUAL      shift, and go to state 30
+    GREATER_EQUAL  shift, and go to state 31
+    AND            shift, and go to state 32
+    OR             shift, and go to state 33
 
     PLUS               [reduce using rule 11 (expression)]
     PLUS               [reduce using rule 29 (boolean)]
@@ -587,43 +622,11 @@ State 37
     $default           reduce using rule 11 (expression)
 
 
-State 38
+State 39
 
    12 expression: VAR ASSIGN boolean •
 
     $default  reduce using rule 12 (expression)
-
-
-State 39
-
-   14 expression: expression • PLUS expression
-   15           | expression • MINUS expression
-   16           | expression • MULTIPLY expression
-   17           | expression • DIVIDE expression
-   20 boolean: expression • EQUAL expression
-   21        | expression • LESS_EQUAL expression
-   22        | expression • GREATER_EQUAL expression
-   23        | expression • NOT_EQUAL expression
-   24        | expression • LESS expression
-   25        | expression • GREATER expression
-   26        | expression • OR expression
-   27        | expression • AND expression
-   29        | expression •
-
-    PLUS           shift, and go to state 21
-    MINUS          shift, and go to state 22
-    MULTIPLY       shift, and go to state 23
-    DIVIDE         shift, and go to state 24
-    EQUAL          shift, and go to state 25
-    LESS           shift, and go to state 26
-    GREATER        shift, and go to state 27
-    LESS_EQUAL     shift, and go to state 28
-    NOT_EQUAL      shift, and go to state 29
-    GREATER_EQUAL  shift, and go to state 30
-    AND            shift, and go to state 31
-    OR             shift, and go to state 32
-
-    $default  reduce using rule 29 (boolean)
 
 
 State 40
@@ -649,10 +652,10 @@ State 42
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
     PLUS      [reduce using rule 14 (expression)]
     MINUS     [reduce using rule 14 (expression)]
@@ -669,10 +672,10 @@ State 43
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
     PLUS      [reduce using rule 15 (expression)]
     MINUS     [reduce using rule 15 (expression)]
@@ -689,10 +692,10 @@ State 44
    16           | expression MULTIPLY expression •
    17           | expression • DIVIDE expression
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
     PLUS      [reduce using rule 16 (expression)]
     MINUS     [reduce using rule 16 (expression)]
@@ -709,10 +712,10 @@ State 45
    17           | expression • DIVIDE expression
    17           | expression DIVIDE expression •
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
     PLUS      [reduce using rule 17 (expression)]
     MINUS     [reduce using rule 17 (expression)]
@@ -727,72 +730,12 @@ State 46
    15           | expression • MINUS expression
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
-   20 boolean: expression EQUAL expression •
+   21 boolean: expression EQUAL expression •
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
-
-    PLUS      [reduce using rule 20 (boolean)]
-    MINUS     [reduce using rule 20 (boolean)]
-    MULTIPLY  [reduce using rule 20 (boolean)]
-    DIVIDE    [reduce using rule 20 (boolean)]
-    $default  reduce using rule 20 (boolean)
-
-
-State 47
-
-   14 expression: expression • PLUS expression
-   15           | expression • MINUS expression
-   16           | expression • MULTIPLY expression
-   17           | expression • DIVIDE expression
-   24 boolean: expression LESS expression •
-
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
-
-    PLUS      [reduce using rule 24 (boolean)]
-    MINUS     [reduce using rule 24 (boolean)]
-    MULTIPLY  [reduce using rule 24 (boolean)]
-    DIVIDE    [reduce using rule 24 (boolean)]
-    $default  reduce using rule 24 (boolean)
-
-
-State 48
-
-   14 expression: expression • PLUS expression
-   15           | expression • MINUS expression
-   16           | expression • MULTIPLY expression
-   17           | expression • DIVIDE expression
-   25 boolean: expression GREATER expression •
-
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
-
-    PLUS      [reduce using rule 25 (boolean)]
-    MINUS     [reduce using rule 25 (boolean)]
-    MULTIPLY  [reduce using rule 25 (boolean)]
-    DIVIDE    [reduce using rule 25 (boolean)]
-    $default  reduce using rule 25 (boolean)
-
-
-State 49
-
-   14 expression: expression • PLUS expression
-   15           | expression • MINUS expression
-   16           | expression • MULTIPLY expression
-   17           | expression • DIVIDE expression
-   21 boolean: expression LESS_EQUAL expression •
-
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
     PLUS      [reduce using rule 21 (boolean)]
     MINUS     [reduce using rule 21 (boolean)]
@@ -801,38 +744,58 @@ State 49
     $default  reduce using rule 21 (boolean)
 
 
-State 50
+State 47
 
    14 expression: expression • PLUS expression
    15           | expression • MINUS expression
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
-   23 boolean: expression NOT_EQUAL expression •
+   25 boolean: expression LESS expression •
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
-    PLUS      [reduce using rule 23 (boolean)]
-    MINUS     [reduce using rule 23 (boolean)]
-    MULTIPLY  [reduce using rule 23 (boolean)]
-    DIVIDE    [reduce using rule 23 (boolean)]
-    $default  reduce using rule 23 (boolean)
+    PLUS      [reduce using rule 25 (boolean)]
+    MINUS     [reduce using rule 25 (boolean)]
+    MULTIPLY  [reduce using rule 25 (boolean)]
+    DIVIDE    [reduce using rule 25 (boolean)]
+    $default  reduce using rule 25 (boolean)
 
 
-State 51
+State 48
 
    14 expression: expression • PLUS expression
    15           | expression • MINUS expression
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
-   22 boolean: expression GREATER_EQUAL expression •
+   26 boolean: expression GREATER expression •
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
+
+    PLUS      [reduce using rule 26 (boolean)]
+    MINUS     [reduce using rule 26 (boolean)]
+    MULTIPLY  [reduce using rule 26 (boolean)]
+    DIVIDE    [reduce using rule 26 (boolean)]
+    $default  reduce using rule 26 (boolean)
+
+
+State 49
+
+   14 expression: expression • PLUS expression
+   15           | expression • MINUS expression
+   16           | expression • MULTIPLY expression
+   17           | expression • DIVIDE expression
+   22 boolean: expression LESS_EQUAL expression •
+
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
     PLUS      [reduce using rule 22 (boolean)]
     MINUS     [reduce using rule 22 (boolean)]
@@ -841,24 +804,64 @@ State 51
     $default  reduce using rule 22 (boolean)
 
 
+State 50
+
+   14 expression: expression • PLUS expression
+   15           | expression • MINUS expression
+   16           | expression • MULTIPLY expression
+   17           | expression • DIVIDE expression
+   24 boolean: expression NOT_EQUAL expression •
+
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
+
+    PLUS      [reduce using rule 24 (boolean)]
+    MINUS     [reduce using rule 24 (boolean)]
+    MULTIPLY  [reduce using rule 24 (boolean)]
+    DIVIDE    [reduce using rule 24 (boolean)]
+    $default  reduce using rule 24 (boolean)
+
+
+State 51
+
+   14 expression: expression • PLUS expression
+   15           | expression • MINUS expression
+   16           | expression • MULTIPLY expression
+   17           | expression • DIVIDE expression
+   23 boolean: expression GREATER_EQUAL expression •
+
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
+
+    PLUS      [reduce using rule 23 (boolean)]
+    MINUS     [reduce using rule 23 (boolean)]
+    MULTIPLY  [reduce using rule 23 (boolean)]
+    DIVIDE    [reduce using rule 23 (boolean)]
+    $default  reduce using rule 23 (boolean)
+
+
 State 52
 
    14 expression: expression • PLUS expression
    15           | expression • MINUS expression
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
-   27 boolean: expression AND expression •
+   28 boolean: expression AND expression •
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
-    PLUS      [reduce using rule 27 (boolean)]
-    MINUS     [reduce using rule 27 (boolean)]
-    MULTIPLY  [reduce using rule 27 (boolean)]
-    DIVIDE    [reduce using rule 27 (boolean)]
-    $default  reduce using rule 27 (boolean)
+    PLUS      [reduce using rule 28 (boolean)]
+    MINUS     [reduce using rule 28 (boolean)]
+    MULTIPLY  [reduce using rule 28 (boolean)]
+    DIVIDE    [reduce using rule 28 (boolean)]
+    $default  reduce using rule 28 (boolean)
 
 
 State 53
@@ -867,18 +870,18 @@ State 53
    15           | expression • MINUS expression
    16           | expression • MULTIPLY expression
    17           | expression • DIVIDE expression
-   26 boolean: expression OR expression •
+   27 boolean: expression OR expression •
 
-    PLUS      shift, and go to state 21
-    MINUS     shift, and go to state 22
-    MULTIPLY  shift, and go to state 23
-    DIVIDE    shift, and go to state 24
+    PLUS      shift, and go to state 22
+    MINUS     shift, and go to state 23
+    MULTIPLY  shift, and go to state 24
+    DIVIDE    shift, and go to state 25
 
-    PLUS      [reduce using rule 26 (boolean)]
-    MINUS     [reduce using rule 26 (boolean)]
-    MULTIPLY  [reduce using rule 26 (boolean)]
-    DIVIDE    [reduce using rule 26 (boolean)]
-    $default  reduce using rule 26 (boolean)
+    PLUS      [reduce using rule 27 (boolean)]
+    MINUS     [reduce using rule 27 (boolean)]
+    MULTIPLY  [reduce using rule 27 (boolean)]
+    DIVIDE    [reduce using rule 27 (boolean)]
+    $default  reduce using rule 27 (boolean)
 
 
 State 54
@@ -910,10 +913,10 @@ State 56
    30 if_command: IF OPEN_PARENTHESIS boolean CLOSE_PARENTHESIS OPEN_BRACKETS expression • CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
    31           | IF OPEN_PARENTHESIS boolean CLOSE_PARENTHESIS OPEN_BRACKETS expression • CLOSE_BRACKETS
 
-    PLUS            shift, and go to state 21
-    MINUS           shift, and go to state 22
-    MULTIPLY        shift, and go to state 23
-    DIVIDE          shift, and go to state 24
+    PLUS            shift, and go to state 22
+    MINUS           shift, and go to state 23
+    MULTIPLY        shift, and go to state 24
+    DIVIDE          shift, and go to state 25
     CLOSE_BRACKETS  shift, and go to state 57
 
 
@@ -953,10 +956,10 @@ State 60
    17           | expression • DIVIDE expression
    30 if_command: IF OPEN_PARENTHESIS boolean CLOSE_PARENTHESIS OPEN_BRACKETS expression CLOSE_BRACKETS ELSE OPEN_BRACKETS expression • CLOSE_BRACKETS
 
-    PLUS            shift, and go to state 21
-    MINUS           shift, and go to state 22
-    MULTIPLY        shift, and go to state 23
-    DIVIDE          shift, and go to state 24
+    PLUS            shift, and go to state 22
+    MINUS           shift, and go to state 23
+    MULTIPLY        shift, and go to state 24
+    DIVIDE          shift, and go to state 25
     CLOSE_BRACKETS  shift, and go to state 61
 
 

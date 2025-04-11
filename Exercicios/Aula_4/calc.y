@@ -54,6 +54,7 @@ expression:
 boolean:
 	TRUEbool              { $$ = 1; }
 	| FALSEbool           { $$ = 0; }
+	| NOT boolean { $$ = !$2; }
     | expression EQUAL expression { $$ = $1 == $3; }
 	| expression LESS_EQUAL expression { $$ = $1 <= $3; }
 	| expression GREATER_EQUAL expression { $$ = $1 >= $3; }
@@ -62,7 +63,6 @@ boolean:
 	| expression GREATER expression { $$ = $1 > $3; }
 	| expression OR expression { $$ = $1 || $3; }
 	| expression AND expression { $$ = $1 && $3; }
-	| NOT expression { $$ = !$2; }
 	| expression { $$ = $1; }
 ;
 
