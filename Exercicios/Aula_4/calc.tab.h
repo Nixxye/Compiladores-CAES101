@@ -72,13 +72,22 @@ extern int yydebug;
     THEN = 267,                    /* THEN  */
     ELSE = 268,                    /* ELSE  */
     EQUAL = 269,                   /* EQUAL  */
-    AND = 270,                     /* AND  */
-    OR = 271,                      /* OR  */
-    NOT = 272,                     /* NOT  */
-    TRUEbool = 273,                /* TRUEbool  */
-    FALSEbool = 274,               /* FALSEbool  */
-    NEWLINE = 275,                 /* NEWLINE  */
-    QUIT = 276                     /* QUIT  */
+    LESS = 270,                    /* LESS  */
+    GREATER = 271,                 /* GREATER  */
+    LESS_EQUAL = 272,              /* LESS_EQUAL  */
+    NOT_EQUAL = 273,               /* NOT_EQUAL  */
+    GREATER_EQUAL = 274,           /* GREATER_EQUAL  */
+    AND = 275,                     /* AND  */
+    OR = 276,                      /* OR  */
+    NOT = 277,                     /* NOT  */
+    OPEN_BRACKETS = 278,           /* OPEN_BRACKETS  */
+    CLOSE_BRACKETS = 279,          /* CLOSE_BRACKETS  */
+    OPEN_PARENTHESIS = 280,        /* OPEN_PARENTHESIS  */
+    CLOSE_PARENTHESIS = 281,       /* CLOSE_PARENTHESIS  */
+    TRUEbool = 282,                /* TRUEbool  */
+    FALSEbool = 283,               /* FALSEbool  */
+    NEWLINE = 284,                 /* NEWLINE  */
+    QUIT = 285                     /* QUIT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -96,7 +105,7 @@ union YYSTYPE
   symrec* VAR;                             /* VAR  */
   symrec* FUN;                             /* FUN  */
 
-#line 100 "calc.tab.h"
+#line 109 "calc.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

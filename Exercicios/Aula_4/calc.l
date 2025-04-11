@@ -27,6 +27,12 @@
 }
 
 "=="      {return EQUAL;}
+"<="      {return LESS_EQUAL;}
+">="      {return GREATER_EQUAL;}
+"!="      {return NOT_EQUAL;}
+"<"       {return LESS;}
+">"       {return GREATER;}
+
 (?i:and)    { return AND; }
 (?i:or)     { return OR; }
 (?i:not)    { return NOT; }
@@ -44,6 +50,11 @@
 (?i:if)    {return IF;}
 (?i:then)  {return THEN;}
 (?i:else)  {return ELSE;}
+
+"{"        {return OPEN_BRACKETS;}
+"}"        {return CLOSE_BRACKETS;}
+"("        {return OPEN_PARENTHESIS;}
+")"        {return CLOSE_PARENTHESIS;}
 
 [a-zA-Z_][a-zA-Z0-9_]* {
   static ptrdiff_t bufsize = 0;
