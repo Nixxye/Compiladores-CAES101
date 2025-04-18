@@ -1007,10 +1007,8 @@ namespace yy {
 int main() {
 	yyin = stdin;
 
-	do {
-		yyparse();
-	} while(!feof(yyin));
-
+  yyparse();
+  
 	return 0;
 }
 

@@ -48,9 +48,9 @@ extern BoolValue *boolTable[TABLE_SIZE];
 // Funções utilitárias
 unsigned int hash(const char *str);
 void add_symbol(const char *name, VarType type);
-void add_int_value(const char *name, int value);
-void add_float_value(const char *name, float value);
-void add_bool_value(const char *name, int value);
+void set_int_value(const char *name, int value);
+void set_float_value(const char *name, float value);
+void set_bool_value(const char *name, int value);
 void print_symbols(void);
 void print_values(void);
 int get_int_value(const char *name);

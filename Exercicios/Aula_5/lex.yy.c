@@ -807,192 +807,289 @@ case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
 #line 15 "calc.l"
-{ return NEWLINE;}
+{ 
+    printf("Token: NEWLINE\n"); 
+    return NEWLINE;
+}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 17 "calc.l"
+#line 20 "calc.l"
 {
   yylval.NUM = strtof(yytext, NULL);
-
+  printf("Token: NUM (%s)\n", yytext); 
   return NUM;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 23 "calc.l"
+#line 26 "calc.l"
 {
   yylval.NUM = strtof(yytext, NULL);
-
+  printf("Token: NUM (%s)\n", yytext); 
   return NUM;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 29 "calc.l"
-{return EQUAL;}
+#line 32 "calc.l"
+{ 
+  printf("Token: EQUAL\n"); 
+  return EQUAL;
+}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 30 "calc.l"
-{return LESS_EQUAL;}
+#line 37 "calc.l"
+{ 
+  printf("Token: LESS_EQUAL\n"); 
+  return LESS_EQUAL;
+}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 31 "calc.l"
-{return GREATER_EQUAL;}
+#line 42 "calc.l"
+{ 
+  printf("Token: GREATER_EQUAL\n"); 
+  return GREATER_EQUAL;
+}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 32 "calc.l"
-{return NOT_EQUAL;}
+#line 47 "calc.l"
+{ 
+  printf("Token: NOT_EQUAL\n"); 
+  return NOT_EQUAL;
+}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 33 "calc.l"
-{return LESS;}
+#line 52 "calc.l"
+{ 
+  printf("Token: LESS\n"); 
+  return LESS;
+}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 34 "calc.l"
-{return GREATER;}
+#line 57 "calc.l"
+{ 
+  printf("Token: GREATER\n"); 
+  return GREATER;
+}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 36 "calc.l"
-{return END;}
+#line 62 "calc.l"
+{ 
+  printf("Token: END\n"); 
+  return END;
+}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 38 "calc.l"
-{ return INT; }
+#line 67 "calc.l"
+{ 
+  printf("Token: INT\n"); 
+  return INT; 
+}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 39 "calc.l"
-{ return FLOAT; }
+#line 72 "calc.l"
+{ 
+  printf("Token: FLOAT\n"); 
+  return FLOAT; 
+}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 40 "calc.l"
-{ return BOOL; }
+#line 77 "calc.l"
+{ 
+  printf("Token: BOOL\n"); 
+  return BOOL; 
+}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 42 "calc.l"
-{ return READ; }
+#line 82 "calc.l"
+{ 
+  printf("Token: READ\n"); 
+  return READ; 
+}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 43 "calc.l"
-{ return WRITE; }
+#line 87 "calc.l"
+{ 
+  printf("Token: WRITE\n"); 
+  return WRITE; 
+}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 45 "calc.l"
-{ return AND; }
+#line 92 "calc.l"
+{ 
+  printf("Token: AND\n"); 
+  return AND; 
+}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 46 "calc.l"
-{ return OR; }
+#line 97 "calc.l"
+{ 
+  printf("Token: OR\n"); 
+  return OR; 
+}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 47 "calc.l"
-{ return NOT; }
+#line 102 "calc.l"
+{ 
+  printf("Token: NOT\n"); 
+  return NOT; 
+}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 48 "calc.l"
-{ return TRUEbool; }
+#line 107 "calc.l"
+{ 
+  printf("Token: TRUEbool\n"); 
+  return TRUEbool; 
+}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 49 "calc.l"
-{ return FALSEbool; }
+#line 112 "calc.l"
+{ 
+  printf("Token: FALSEbool\n"); 
+  return FALSEbool; 
+}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 51 "calc.l"
-{return PLUS;}
+#line 117 "calc.l"
+{ 
+  printf("Token: PLUS\n"); 
+  return PLUS;
+}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 52 "calc.l"
-{return MINUS;}
+#line 122 "calc.l"
+{ 
+  printf("Token: MINUS\n"); 
+  return MINUS;
+}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 53 "calc.l"
-{return MULTIPLY;}
+#line 127 "calc.l"
+{ 
+  printf("Token: MULTIPLY\n"); 
+  return MULTIPLY;
+}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 54 "calc.l"
-{return DIVIDE;}
+#line 132 "calc.l"
+{ 
+  printf("Token: DIVIDE\n"); 
+  return DIVIDE;
+}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 55 "calc.l"
-{return ASSIGN;}
+#line 137 "calc.l"
+{ 
+  printf("Token: ASSIGN\n"); 
+  return ASSIGN;
+}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 57 "calc.l"
-{return QUIT;}
+#line 142 "calc.l"
+{ 
+  printf("Token: QUIT\n"); 
+  return QUIT; 
+}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 58 "calc.l"
-{return QUIT;}
+#line 147 "calc.l"
+{ 
+  printf("Token: QUIT\n"); 
+  return QUIT; 
+}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 59 "calc.l"
-{return IF;}
+#line 152 "calc.l"
+{ 
+  printf("Token: IF\n"); 
+  return IF; 
+}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 60 "calc.l"
-{return THEN;}
+#line 157 "calc.l"
+{ 
+  printf("Token: THEN\n"); 
+  return THEN; 
+}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 61 "calc.l"
-{return ELSE;}
+#line 162 "calc.l"
+{ 
+  printf("Token: ELSE\n"); 
+  return ELSE; 
+}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 63 "calc.l"
-{return OPEN_BRACKETS;}
+#line 167 "calc.l"
+{ 
+  printf("Token: OPEN_BRACKETS\n"); 
+  return OPEN_BRACKETS; 
+}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 64 "calc.l"
-{return CLOSE_BRACKETS;}
+#line 172 "calc.l"
+{ 
+  printf("Token: CLOSE_BRACKETS\n"); 
+  return CLOSE_BRACKETS; 
+}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 65 "calc.l"
-{return OPEN_PARENTHESIS;}
+#line 177 "calc.l"
+{ 
+  printf("Token: OPEN_PARENTHESIS\n"); 
+  return OPEN_PARENTHESIS; 
+}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 66 "calc.l"
-{return CLOSE_PARENTHESIS;}
+#line 182 "calc.l"
+{ 
+  printf("Token: CLOSE_PARENTHESIS\n"); 
+  return CLOSE_PARENTHESIS; 
+}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 68 "calc.l"
+#line 187 "calc.l"
 {
   yylval.ID = strdup(yytext);
+  printf("Token: ID (%s)\n", yytext); 
   return ID;
 } 
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 73 "calc.l"
+#line 193 "calc.l"
 {
   printf("Caractere inesperado: %s\n", yytext);
   return yytext[0];
@@ -1000,10 +1097,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 78 "calc.l"
+#line 198 "calc.l"
 ECHO;
 	YY_BREAK
-#line 1007 "lex.yy.c"
+#line 1104 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2008,6 +2105,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 78 "calc.l"
+#line 198 "calc.l"
 
 

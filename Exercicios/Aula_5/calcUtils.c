@@ -47,9 +47,9 @@ void add_symbol(const char *name, VarType type) {
 }
 
 // Adiciona valor inteiro
-void add_int_value(const char *name, int value) {
-    add_symbol(name, INT_VAR);
+void set_int_value(const char *name, int value) {
     unsigned int index = hash(name);
+    //add_symbol(name, INT_VAR);
     IntValue *val = intTable[index];
     while (val) {
         if (strcmp(val->name, name) == 0) {
@@ -66,8 +66,8 @@ void add_int_value(const char *name, int value) {
 }
 
 // Adiciona valor float
-void add_float_value(const char *name, float value) {
-    add_symbol(name, FLOAT_VAR);
+void set_float_value(const char *name, float value) {
+    //add_symbol(name, FLOAT_VAR);
     unsigned int index = hash(name);
     FloatValue *val = floatTable[index];
     while (val) {
@@ -85,8 +85,8 @@ void add_float_value(const char *name, float value) {
 }
 
 // Adiciona valor booleano
-void add_bool_value(const char *name, int value) {
-    add_symbol(name, BOOL_VAR);
+void set_bool_value(const char *name, int value) {
+    //add_symbol(name, BOOL_VAR);
     unsigned int index = hash(name);
     BoolValue *val = boolTable[index];
     while (val) {

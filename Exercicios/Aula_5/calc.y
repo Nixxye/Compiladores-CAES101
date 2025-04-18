@@ -37,13 +37,23 @@
 %%
 
 program:
-	declarations line
-	| commands line 
+    lines
 ;
 
+lines:
+    line
+    | lines line
+;
+
+line:
+    declarations NEWLINE
+    | commands NEWLINE
+;
+
+
 declarations: 
-	declaration END
-	| declarations declaration END
+	declaration
+	| declarations declaration
 ;
 
 declaration:
@@ -66,25 +76,13 @@ command:
 
 read_command:
 	READ OPEN_PARENTHESIS ID CLOSE_PARENTHESIS { 
-		switch (get_variable_type($3)) {
-			case INT_VAR: 
-				$$ = get_int_value($3);
-			break;
-			case FLOAT_VAR: 
-				$$ = get_float_value($3);
-			break;
-			case BOOL_VAR: 
-				$$ = get_bool_value($3);
-			break;
-			default:
-				// variable not found
-				break;
-		} }
+		//scanf???
+	}
 ;
 
 write_command:
-	WRITE OPEN_PARENTHESIS ID CLOSE_PARENTHESIS { 
-		// não entendi o que viria aqui
+	WRITE OPEN_PARENTHESIS expression CLOSE_PARENTHESIS { 
+		printf("%f\n", $3); 
 	}
 ;
 
@@ -95,22 +93,19 @@ assignment:
 	ID ASSIGN expression END { 
 		switch (get_variable_type($1)) {
 			case INT_VAR: 
-				add_int_value($1, $3);
+				set_int_value($1, $3);
 			break;
 			case FLOAT_VAR: 
-				add_float_value($1, $3);
+				set_float_value($1, $3);
 			break;
 			case BOOL_VAR: 
-				add_bool_value($1, $3);
+				set_bool_value($1, $3);
 			break;
 			default:
 				// variable not found
 				break;
 		} }
 
-line:
-	NEWLINE
-;
 
 expression:
     term
@@ -126,6 +121,19 @@ term:
 
 factor:
     NUM
+	| ID { 
+		switch (get_variable_type($1)) {
+			case INT_VAR: 
+				$$ = get_int_value($1);
+			break;
+			case FLOAT_VAR: 
+				$$ = get_float_value($1);
+			break;
+			default:
+				// variable not found
+				break;
+		}
+	}
     | OPEN_PARENTHESIS expression CLOSE_PARENTHESIS { $$ = $2; }
 ;
 

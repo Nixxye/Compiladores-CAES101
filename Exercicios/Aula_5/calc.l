@@ -12,61 +12,181 @@
 
 [ \t]+  ; // ignora espaços
 
-\n  { return NEWLINE;}
+\n  { 
+    printf("Token: NEWLINE\n"); 
+    return NEWLINE;
+}
 
 [0-9]+\.[0-9]+ {
   yylval.NUM = strtof(yytext, NULL);
-
+  printf("Token: NUM (%s)\n", yytext); 
   return NUM;
 }
 
 [0-9]+ {
   yylval.NUM = strtof(yytext, NULL);
-
+  printf("Token: NUM (%s)\n", yytext); 
   return NUM;
 }
 
-"=="      {return EQUAL;}
-"<="      {return LESS_EQUAL;}
-">="      {return GREATER_EQUAL;}
-"!="      {return NOT_EQUAL;}
-"<"       {return LESS;}
-">"       {return GREATER;}
+"=="      { 
+  printf("Token: EQUAL\n"); 
+  return EQUAL;
+}
 
-";"       {return END;}
+"<="      { 
+  printf("Token: LESS_EQUAL\n"); 
+  return LESS_EQUAL;
+}
 
-(?i:int)   { return INT; }
-(?i:float)  { return FLOAT; }
-(?i:bool)   { return BOOL; }
+">="      { 
+  printf("Token: GREATER_EQUAL\n"); 
+  return GREATER_EQUAL;
+}
 
-(?i:read)  { return READ; }
-(?i:write) { return WRITE; }
+"!="      { 
+  printf("Token: NOT_EQUAL\n"); 
+  return NOT_EQUAL;
+}
 
-(?i:and)    { return AND; }
-(?i:or)     { return OR; }
-(?i:not)    { return NOT; }
-(?i:true)   { return TRUEbool; }
-(?i:false)  { return FALSEbool; }
+"<"       { 
+  printf("Token: LESS\n"); 
+  return LESS;
+}
 
-"+"		{return PLUS;}
-"-"		{return MINUS;}
-"*"		{return MULTIPLY;}
-"/"		{return DIVIDE;}
-"="		{return ASSIGN;}
+">"       { 
+  printf("Token: GREATER\n"); 
+  return GREATER;
+}
 
-(?i:exit)		{return QUIT;}
-(?i:quit)		{return QUIT;}
-(?i:if)    {return IF;}
-(?i:then)  {return THEN;}
-(?i:else)  {return ELSE;}
+";"       { 
+  printf("Token: END\n"); 
+  return END;
+}
 
-"{"        {return OPEN_BRACKETS;}
-"}"        {return CLOSE_BRACKETS;}
-"("        {return OPEN_PARENTHESIS;}
-")"        {return CLOSE_PARENTHESIS;}
+(?i:int)   { 
+  printf("Token: INT\n"); 
+  return INT; 
+}
+
+(?i:float)  { 
+  printf("Token: FLOAT\n"); 
+  return FLOAT; 
+}
+
+(?i:bool)   { 
+  printf("Token: BOOL\n"); 
+  return BOOL; 
+}
+
+(?i:read)  { 
+  printf("Token: READ\n"); 
+  return READ; 
+}
+
+(?i:write) { 
+  printf("Token: WRITE\n"); 
+  return WRITE; 
+}
+
+(?i:and)    { 
+  printf("Token: AND\n"); 
+  return AND; 
+}
+
+(?i:or)     { 
+  printf("Token: OR\n"); 
+  return OR; 
+}
+
+(?i:not)    { 
+  printf("Token: NOT\n"); 
+  return NOT; 
+}
+
+(?i:true)   { 
+  printf("Token: TRUEbool\n"); 
+  return TRUEbool; 
+}
+
+(?i:false)  { 
+  printf("Token: FALSEbool\n"); 
+  return FALSEbool; 
+}
+
+"+"		{ 
+  printf("Token: PLUS\n"); 
+  return PLUS;
+}
+
+"-"		{ 
+  printf("Token: MINUS\n"); 
+  return MINUS;
+}
+
+"*"		{ 
+  printf("Token: MULTIPLY\n"); 
+  return MULTIPLY;
+}
+
+"/"		{ 
+  printf("Token: DIVIDE\n"); 
+  return DIVIDE;
+}
+
+"="		{ 
+  printf("Token: ASSIGN\n"); 
+  return ASSIGN;
+}
+
+(?i:exit)		{ 
+  printf("Token: QUIT\n"); 
+  return QUIT; 
+}
+
+(?i:quit)		{ 
+  printf("Token: QUIT\n"); 
+  return QUIT; 
+}
+
+(?i:if)    { 
+  printf("Token: IF\n"); 
+  return IF; 
+}
+
+(?i:then)  { 
+  printf("Token: THEN\n"); 
+  return THEN; 
+}
+
+(?i:else)  { 
+  printf("Token: ELSE\n"); 
+  return ELSE; 
+}
+
+"{"        { 
+  printf("Token: OPEN_BRACKETS\n"); 
+  return OPEN_BRACKETS; 
+}
+
+"}"        { 
+  printf("Token: CLOSE_BRACKETS\n"); 
+  return CLOSE_BRACKETS; 
+}
+
+"("        { 
+  printf("Token: OPEN_PARENTHESIS\n"); 
+  return OPEN_PARENTHESIS; 
+}
+
+")"        { 
+  printf("Token: CLOSE_PARENTHESIS\n"); 
+  return CLOSE_PARENTHESIS; 
+}
 
 [a-zA-Z_][a-zA-Z0-9_]* {
   yylval.ID = strdup(yytext);
+  printf("Token: ID (%s)\n", yytext); 
   return ID;
 } 
 
