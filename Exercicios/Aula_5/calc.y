@@ -76,7 +76,32 @@ command:
 
 read_command:
 	READ OPEN_PARENTHESIS ID CLOSE_PARENTHESIS { 
-		//scanf???
+		switch (get_variable_type($3)) {
+			case INT_VAR: 
+				int auxInt;
+				printf("Enter an integer: ");
+				scanf("%d", &auxInt);
+				while (getchar() != '\n'); // limpar buffer
+				set_int_value($3, auxInt);
+			break;
+			case FLOAT_VAR: 
+				float auxFloat;
+				printf("Enter a float: ");
+				scanf("%f", &auxFloat);
+				while (getchar() != '\n'); // limpar buffer
+				set_float_value($3, auxFloat);
+			break;
+			case BOOL_VAR: 
+				int auxBool;
+				printf("Enter a boolean (0 or 1): ");
+				scanf("%d", &auxBool);
+				while (getchar() != '\n'); // limpar buffer
+				set_bool_value($3, auxBool);
+			break;
+			default:
+				// variable not found
+				break;
+		}
 	}
 ;
 
@@ -98,6 +123,13 @@ assignment:
 			case FLOAT_VAR: 
 				set_float_value($1, $3);
 			break;
+			break;
+			default:
+				// variable not found
+				break;
+		} }
+	| ID ASSIGN boolean_expression END {
+		switch (get_variable_type($1)) {
 			case BOOL_VAR: 
 				set_bool_value($1, $3);
 			break;
@@ -129,6 +161,9 @@ factor:
 			case FLOAT_VAR: 
 				$$ = get_float_value($1);
 			break;
+			case BOOL_VAR: 
+				$$ = get_bool_value($1);
+			break;
 			default:
 				// variable not found
 				break;
@@ -150,7 +185,6 @@ boolean_expression:
 	| expression GREATER expression { $$ = $1 > $3; }
 	| expression OR expression { $$ = $1 || $3; }
 	| expression AND expression { $$ = $1 && $3; }
-	| expression { $$ = $1; }
 ;
 
 

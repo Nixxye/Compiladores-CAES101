@@ -808,7 +808,7 @@ case 2:
 YY_RULE_SETUP
 #line 15 "calc.l"
 { 
-    printf("Token: NEWLINE\n"); 
+    //printf("Token: NEWLINE\n"); 
     return NEWLINE;
 }
 	YY_BREAK
@@ -817,7 +817,7 @@ YY_RULE_SETUP
 #line 20 "calc.l"
 {
   yylval.NUM = strtof(yytext, NULL);
-  printf("Token: NUM (%s)\n", yytext); 
+  //printf("Token: NUM (%s)\n", yytext); 
   return NUM;
 }
 	YY_BREAK
@@ -826,7 +826,7 @@ YY_RULE_SETUP
 #line 26 "calc.l"
 {
   yylval.NUM = strtof(yytext, NULL);
-  printf("Token: NUM (%s)\n", yytext); 
+  //printf("Token: NUM (%s)\n", yytext); 
   return NUM;
 }
 	YY_BREAK
@@ -834,7 +834,7 @@ case 5:
 YY_RULE_SETUP
 #line 32 "calc.l"
 { 
-  printf("Token: EQUAL\n"); 
+  //printf("Token: EQUAL\n"); 
   return EQUAL;
 }
 	YY_BREAK
@@ -842,7 +842,7 @@ case 6:
 YY_RULE_SETUP
 #line 37 "calc.l"
 { 
-  printf("Token: LESS_EQUAL\n"); 
+  //printf("Token: LESS_EQUAL\n"); 
   return LESS_EQUAL;
 }
 	YY_BREAK
@@ -850,7 +850,7 @@ case 7:
 YY_RULE_SETUP
 #line 42 "calc.l"
 { 
-  printf("Token: GREATER_EQUAL\n"); 
+  //printf("Token: GREATER_EQUAL\n"); 
   return GREATER_EQUAL;
 }
 	YY_BREAK
@@ -858,7 +858,7 @@ case 8:
 YY_RULE_SETUP
 #line 47 "calc.l"
 { 
-  printf("Token: NOT_EQUAL\n"); 
+  //printf("Token: NOT_EQUAL\n"); 
   return NOT_EQUAL;
 }
 	YY_BREAK
@@ -866,7 +866,7 @@ case 9:
 YY_RULE_SETUP
 #line 52 "calc.l"
 { 
-  printf("Token: LESS\n"); 
+  //printf("Token: LESS\n"); 
   return LESS;
 }
 	YY_BREAK
@@ -874,7 +874,7 @@ case 10:
 YY_RULE_SETUP
 #line 57 "calc.l"
 { 
-  printf("Token: GREATER\n"); 
+  //printf("Token: GREATER\n"); 
   return GREATER;
 }
 	YY_BREAK
@@ -882,7 +882,7 @@ case 11:
 YY_RULE_SETUP
 #line 62 "calc.l"
 { 
-  printf("Token: END\n"); 
+  //printf("Token: END\n"); 
   return END;
 }
 	YY_BREAK
@@ -890,7 +890,7 @@ case 12:
 YY_RULE_SETUP
 #line 67 "calc.l"
 { 
-  printf("Token: INT\n"); 
+  //printf("Token: INT\n"); 
   return INT; 
 }
 	YY_BREAK
@@ -898,7 +898,7 @@ case 13:
 YY_RULE_SETUP
 #line 72 "calc.l"
 { 
-  printf("Token: FLOAT\n"); 
+  //printf("Token: FLOAT\n"); 
   return FLOAT; 
 }
 	YY_BREAK
@@ -906,7 +906,7 @@ case 14:
 YY_RULE_SETUP
 #line 77 "calc.l"
 { 
-  printf("Token: BOOL\n"); 
+  //printf("Token: BOOL\n"); 
   return BOOL; 
 }
 	YY_BREAK
@@ -914,7 +914,7 @@ case 15:
 YY_RULE_SETUP
 #line 82 "calc.l"
 { 
-  printf("Token: READ\n"); 
+  //printf("Token: READ\n"); 
   return READ; 
 }
 	YY_BREAK
@@ -922,7 +922,7 @@ case 16:
 YY_RULE_SETUP
 #line 87 "calc.l"
 { 
-  printf("Token: WRITE\n"); 
+  //printf("Token: WRITE\n"); 
   return WRITE; 
 }
 	YY_BREAK
@@ -930,7 +930,7 @@ case 17:
 YY_RULE_SETUP
 #line 92 "calc.l"
 { 
-  printf("Token: AND\n"); 
+  //printf("Token: AND\n"); 
   return AND; 
 }
 	YY_BREAK
@@ -938,7 +938,7 @@ case 18:
 YY_RULE_SETUP
 #line 97 "calc.l"
 { 
-  printf("Token: OR\n"); 
+  //printf("Token: OR\n"); 
   return OR; 
 }
 	YY_BREAK
@@ -946,7 +946,7 @@ case 19:
 YY_RULE_SETUP
 #line 102 "calc.l"
 { 
-  printf("Token: NOT\n"); 
+  //printf("Token: NOT\n"); 
   return NOT; 
 }
 	YY_BREAK
@@ -954,7 +954,7 @@ case 20:
 YY_RULE_SETUP
 #line 107 "calc.l"
 { 
-  printf("Token: TRUEbool\n"); 
+  //printf("Token: TRUEbool\n"); 
   return TRUEbool; 
 }
 	YY_BREAK
@@ -962,7 +962,7 @@ case 21:
 YY_RULE_SETUP
 #line 112 "calc.l"
 { 
-  printf("Token: FALSEbool\n"); 
+  //printf("Token: FALSEbool\n"); 
   return FALSEbool; 
 }
 	YY_BREAK
@@ -970,7 +970,7 @@ case 22:
 YY_RULE_SETUP
 #line 117 "calc.l"
 { 
-  printf("Token: PLUS\n"); 
+  //printf("Token: PLUS\n"); 
   return PLUS;
 }
 	YY_BREAK
@@ -978,7 +978,7 @@ case 23:
 YY_RULE_SETUP
 #line 122 "calc.l"
 { 
-  printf("Token: MINUS\n"); 
+  //printf("Token: MINUS\n"); 
   return MINUS;
 }
 	YY_BREAK
@@ -986,7 +986,7 @@ case 24:
 YY_RULE_SETUP
 #line 127 "calc.l"
 { 
-  printf("Token: MULTIPLY\n"); 
+  //printf("Token: MULTIPLY\n"); 
   return MULTIPLY;
 }
 	YY_BREAK
@@ -994,7 +994,7 @@ case 25:
 YY_RULE_SETUP
 #line 132 "calc.l"
 { 
-  printf("Token: DIVIDE\n"); 
+  //printf("Token: DIVIDE\n"); 
   return DIVIDE;
 }
 	YY_BREAK
@@ -1002,7 +1002,7 @@ case 26:
 YY_RULE_SETUP
 #line 137 "calc.l"
 { 
-  printf("Token: ASSIGN\n"); 
+  //printf("Token: ASSIGN\n"); 
   return ASSIGN;
 }
 	YY_BREAK
@@ -1010,7 +1010,7 @@ case 27:
 YY_RULE_SETUP
 #line 142 "calc.l"
 { 
-  printf("Token: QUIT\n"); 
+  //printf("Token: QUIT\n"); 
   return QUIT; 
 }
 	YY_BREAK
@@ -1018,7 +1018,7 @@ case 28:
 YY_RULE_SETUP
 #line 147 "calc.l"
 { 
-  printf("Token: QUIT\n"); 
+  //printf("Token: QUIT\n"); 
   return QUIT; 
 }
 	YY_BREAK
@@ -1026,7 +1026,7 @@ case 29:
 YY_RULE_SETUP
 #line 152 "calc.l"
 { 
-  printf("Token: IF\n"); 
+  //printf("Token: IF\n"); 
   return IF; 
 }
 	YY_BREAK
@@ -1034,7 +1034,7 @@ case 30:
 YY_RULE_SETUP
 #line 157 "calc.l"
 { 
-  printf("Token: THEN\n"); 
+  //printf("Token: THEN\n"); 
   return THEN; 
 }
 	YY_BREAK
@@ -1042,7 +1042,7 @@ case 31:
 YY_RULE_SETUP
 #line 162 "calc.l"
 { 
-  printf("Token: ELSE\n"); 
+  //printf("Token: ELSE\n"); 
   return ELSE; 
 }
 	YY_BREAK
@@ -1050,7 +1050,7 @@ case 32:
 YY_RULE_SETUP
 #line 167 "calc.l"
 { 
-  printf("Token: OPEN_BRACKETS\n"); 
+  //printf("Token: OPEN_BRACKETS\n"); 
   return OPEN_BRACKETS; 
 }
 	YY_BREAK
@@ -1058,7 +1058,7 @@ case 33:
 YY_RULE_SETUP
 #line 172 "calc.l"
 { 
-  printf("Token: CLOSE_BRACKETS\n"); 
+  //printf("Token: CLOSE_BRACKETS\n"); 
   return CLOSE_BRACKETS; 
 }
 	YY_BREAK
@@ -1066,7 +1066,7 @@ case 34:
 YY_RULE_SETUP
 #line 177 "calc.l"
 { 
-  printf("Token: OPEN_PARENTHESIS\n"); 
+  //printf("Token: OPEN_PARENTHESIS\n"); 
   return OPEN_PARENTHESIS; 
 }
 	YY_BREAK
@@ -1074,7 +1074,7 @@ case 35:
 YY_RULE_SETUP
 #line 182 "calc.l"
 { 
-  printf("Token: CLOSE_PARENTHESIS\n"); 
+  //printf("Token: CLOSE_PARENTHESIS\n"); 
   return CLOSE_PARENTHESIS; 
 }
 	YY_BREAK
@@ -1083,7 +1083,7 @@ YY_RULE_SETUP
 #line 187 "calc.l"
 {
   yylval.ID = strdup(yytext);
-  printf("Token: ID (%s)\n", yytext); 
+  //printf("Token: ID (%s)\n", yytext); 
   return ID;
 } 
 	YY_BREAK
@@ -1091,7 +1091,7 @@ case 37:
 YY_RULE_SETUP
 #line 193 "calc.l"
 {
-  printf("Caractere inesperado: %s\n", yytext);
+  //printf("Caractere inesperado: %s\n", yytext);
   return yytext[0];
 }
 	YY_BREAK

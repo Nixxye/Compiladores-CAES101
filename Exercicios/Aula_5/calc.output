@@ -38,31 +38,31 @@ Grammar
    19 assignments: assignment
 
    20 assignment: ID ASSIGN expression END
+   21           | ID ASSIGN boolean_expression END
 
-   21 expression: term
-   22           | expression PLUS term
-   23           | expression MINUS term
+   22 expression: term
+   23           | expression PLUS term
+   24           | expression MINUS term
 
-   24 term: factor
-   25     | term MULTIPLY factor
-   26     | term DIVIDE factor
+   25 term: factor
+   26     | term MULTIPLY factor
+   27     | term DIVIDE factor
 
-   27 factor: NUM
-   28       | ID
-   29       | OPEN_PARENTHESIS expression CLOSE_PARENTHESIS
+   28 factor: NUM
+   29       | ID
+   30       | OPEN_PARENTHESIS expression CLOSE_PARENTHESIS
 
-   30 boolean_expression: TRUEbool
-   31                   | FALSEbool
-   32                   | NOT boolean_expression
-   33                   | expression EQUAL expression
-   34                   | expression LESS_EQUAL expression
-   35                   | expression GREATER_EQUAL expression
-   36                   | expression NOT_EQUAL expression
-   37                   | expression LESS expression
-   38                   | expression GREATER expression
-   39                   | expression OR expression
-   40                   | expression AND expression
-   41                   | expression
+   31 boolean_expression: TRUEbool
+   32                   | FALSEbool
+   33                   | NOT boolean_expression
+   34                   | expression EQUAL expression
+   35                   | expression LESS_EQUAL expression
+   36                   | expression GREATER_EQUAL expression
+   37                   | expression NOT_EQUAL expression
+   38                   | expression LESS expression
+   39                   | expression GREATER expression
+   40                   | expression OR expression
+   41                   | expression AND expression
 
    42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
    43           | IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS
@@ -72,30 +72,30 @@ Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    NUM <float> (258) 27
-    PLUS (259) 22
-    MINUS (260) 23
-    MULTIPLY (261) 25
-    DIVIDE (262) 26
-    ASSIGN (263) 20
+    NUM <float> (258) 28
+    PLUS (259) 23
+    MINUS (260) 24
+    MULTIPLY (261) 26
+    DIVIDE (262) 27
+    ASSIGN (263) 20 21
     IF (264) 42 43
     THEN (265)
     ELSE (266) 42
-    EQUAL (267) 33
-    LESS (268) 37
-    GREATER (269) 38
-    LESS_EQUAL (270) 34
-    NOT_EQUAL (271) 36
-    GREATER_EQUAL (272) 35
-    AND (273) 40
-    OR (274) 39
-    NOT (275) 32
+    EQUAL (267) 34
+    LESS (268) 38
+    GREATER (269) 39
+    LESS_EQUAL (270) 35
+    NOT_EQUAL (271) 37
+    GREATER_EQUAL (272) 36
+    AND (273) 41
+    OR (274) 40
+    NOT (275) 33
     OPEN_BRACKETS (276) 42 43
     CLOSE_BRACKETS (277) 42 43
-    OPEN_PARENTHESIS (278) 17 18 29 42 43
-    CLOSE_PARENTHESIS (279) 17 18 29 42 43
-    TRUEbool <int> (280) 30
-    FALSEbool <int> (281) 31
+    OPEN_PARENTHESIS (278) 17 18 30 42 43
+    CLOSE_PARENTHESIS (279) 17 18 30 42 43
+    TRUEbool <int> (280) 31
+    FALSEbool <int> (281) 32
     NEWLINE (282) 4 5
     QUIT (283)
     INT (284) 8
@@ -103,8 +103,8 @@ Terminals, with rules where they appear
     BOOL (286) 10
     READ (287) 17
     WRITE (288) 18
-    END (289) 8 9 10 15 16 20
-    ID <char*> (290) 8 9 10 17 20 28
+    END (289) 8 9 10 15 16 20 21
+    ID <char*> (290) 8 9 10 17 20 21 29
 
 
 Nonterminals, with rules where they appear
@@ -142,20 +142,20 @@ Nonterminals, with rules where they appear
         on left: 19
         on right: 14 42 43
     assignment <float> (47)
-        on left: 20
+        on left: 20 21
         on right: 19
     expression <float> (48)
-        on left: 21 22 23
-        on right: 18 20 22 23 29 33 34 35 36 37 38 39 40 41 42
+        on left: 22 23 24
+        on right: 18 20 23 24 30 34 35 36 37 38 39 40 41 42
     term <float> (49)
-        on left: 24 25 26
-        on right: 21 22 23 25 26
+        on left: 25 26 27
+        on right: 22 23 24 26 27
     factor <float> (50)
-        on left: 27 28 29
-        on right: 24 25 26
+        on left: 28 29 30
+        on right: 25 26 27
     boolean_expression <int> (51)
-        on left: 30 31 32 33 34 35 36 37 38 39 40 41
-        on right: 32 42 43
+        on left: 31 32 33 34 35 36 37 38 39 40 41
+        on right: 21 33 42 43
     if_command <float> (52)
         on left: 42 43
         on right: 13
@@ -233,6 +233,7 @@ State 6
 State 7
 
    20 assignment: ID • ASSIGN expression END
+   21           | ID • ASSIGN boolean_expression END
 
     ASSIGN  shift, and go to state 26
 
@@ -421,14 +422,19 @@ State 25
 State 26
 
    20 assignment: ID ASSIGN • expression END
+   21           | ID ASSIGN • boolean_expression END
 
     NUM               shift, and go to state 35
+    NOT               shift, and go to state 36
     OPEN_PARENTHESIS  shift, and go to state 37
+    TRUEbool          shift, and go to state 38
+    FALSEbool         shift, and go to state 39
     ID                shift, and go to state 40
 
-    expression  go to state 50
-    term        go to state 42
-    factor      go to state 43
+    expression          go to state 50
+    term                go to state 42
+    factor              go to state 43
+    boolean_expression  go to state 51
 
 
 State 27
@@ -489,14 +495,14 @@ State 34
 
 State 35
 
-   27 factor: NUM •
+   28 factor: NUM •
 
-    $default  reduce using rule 27 (factor)
+    $default  reduce using rule 28 (factor)
 
 
 State 36
 
-   32 boolean_expression: NOT • boolean_expression
+   33 boolean_expression: NOT • boolean_expression
 
     NUM               shift, and go to state 35
     NOT               shift, and go to state 36
@@ -508,88 +514,85 @@ State 36
     expression          go to state 41
     term                go to state 42
     factor              go to state 43
-    boolean_expression  go to state 51
+    boolean_expression  go to state 52
 
 
 State 37
 
-   29 factor: OPEN_PARENTHESIS • expression CLOSE_PARENTHESIS
+   30 factor: OPEN_PARENTHESIS • expression CLOSE_PARENTHESIS
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
     ID                shift, and go to state 40
 
-    expression  go to state 52
+    expression  go to state 53
     term        go to state 42
     factor      go to state 43
 
 
 State 38
 
-   30 boolean_expression: TRUEbool •
-
-    $default  reduce using rule 30 (boolean_expression)
-
-
-State 39
-
-   31 boolean_expression: FALSEbool •
+   31 boolean_expression: TRUEbool •
 
     $default  reduce using rule 31 (boolean_expression)
 
 
+State 39
+
+   32 boolean_expression: FALSEbool •
+
+    $default  reduce using rule 32 (boolean_expression)
+
+
 State 40
 
-   28 factor: ID •
+   29 factor: ID •
 
-    $default  reduce using rule 28 (factor)
+    $default  reduce using rule 29 (factor)
 
 
 State 41
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   33 boolean_expression: expression • EQUAL expression
-   34                   | expression • LESS_EQUAL expression
-   35                   | expression • GREATER_EQUAL expression
-   36                   | expression • NOT_EQUAL expression
-   37                   | expression • LESS expression
-   38                   | expression • GREATER expression
-   39                   | expression • OR expression
-   40                   | expression • AND expression
-   41                   | expression •
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   34 boolean_expression: expression • EQUAL expression
+   35                   | expression • LESS_EQUAL expression
+   36                   | expression • GREATER_EQUAL expression
+   37                   | expression • NOT_EQUAL expression
+   38                   | expression • LESS expression
+   39                   | expression • GREATER expression
+   40                   | expression • OR expression
+   41                   | expression • AND expression
 
-    PLUS           shift, and go to state 53
-    MINUS          shift, and go to state 54
-    EQUAL          shift, and go to state 55
-    LESS           shift, and go to state 56
-    GREATER        shift, and go to state 57
-    LESS_EQUAL     shift, and go to state 58
-    NOT_EQUAL      shift, and go to state 59
-    GREATER_EQUAL  shift, and go to state 60
-    AND            shift, and go to state 61
-    OR             shift, and go to state 62
-
-    $default  reduce using rule 41 (boolean_expression)
+    PLUS           shift, and go to state 54
+    MINUS          shift, and go to state 55
+    EQUAL          shift, and go to state 56
+    LESS           shift, and go to state 57
+    GREATER        shift, and go to state 58
+    LESS_EQUAL     shift, and go to state 59
+    NOT_EQUAL      shift, and go to state 60
+    GREATER_EQUAL  shift, and go to state 61
+    AND            shift, and go to state 62
+    OR             shift, and go to state 63
 
 
 State 42
 
-   21 expression: term •
-   25 term: term • MULTIPLY factor
-   26     | term • DIVIDE factor
+   22 expression: term •
+   26 term: term • MULTIPLY factor
+   27     | term • DIVIDE factor
 
-    MULTIPLY  shift, and go to state 63
-    DIVIDE    shift, and go to state 64
+    MULTIPLY  shift, and go to state 64
+    DIVIDE    shift, and go to state 65
 
-    $default  reduce using rule 21 (expression)
+    $default  reduce using rule 22 (expression)
 
 
 State 43
 
-   24 term: factor •
+   25 term: factor •
 
-    $default  reduce using rule 24 (term)
+    $default  reduce using rule 25 (term)
 
 
 State 44
@@ -597,7 +600,7 @@ State 44
    42 if_command: IF OPEN_PARENTHESIS boolean_expression • CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
    43           | IF OPEN_PARENTHESIS boolean_expression • CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS
 
-    CLOSE_PARENTHESIS  shift, and go to state 65
+    CLOSE_PARENTHESIS  shift, and go to state 66
 
 
 State 45
@@ -625,102 +628,99 @@ State 48
 
    17 read_command: READ OPEN_PARENTHESIS ID • CLOSE_PARENTHESIS
 
-    CLOSE_PARENTHESIS  shift, and go to state 66
+    CLOSE_PARENTHESIS  shift, and go to state 67
 
 
 State 49
 
    18 write_command: WRITE OPEN_PARENTHESIS expression • CLOSE_PARENTHESIS
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
 
-    PLUS               shift, and go to state 53
-    MINUS              shift, and go to state 54
-    CLOSE_PARENTHESIS  shift, and go to state 67
+    PLUS               shift, and go to state 54
+    MINUS              shift, and go to state 55
+    CLOSE_PARENTHESIS  shift, and go to state 68
 
 
 State 50
 
    20 assignment: ID ASSIGN expression • END
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   34 boolean_expression: expression • EQUAL expression
+   35                   | expression • LESS_EQUAL expression
+   36                   | expression • GREATER_EQUAL expression
+   37                   | expression • NOT_EQUAL expression
+   38                   | expression • LESS expression
+   39                   | expression • GREATER expression
+   40                   | expression • OR expression
+   41                   | expression • AND expression
 
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
-    END    shift, and go to state 68
+    PLUS           shift, and go to state 54
+    MINUS          shift, and go to state 55
+    EQUAL          shift, and go to state 56
+    LESS           shift, and go to state 57
+    GREATER        shift, and go to state 58
+    LESS_EQUAL     shift, and go to state 59
+    NOT_EQUAL      shift, and go to state 60
+    GREATER_EQUAL  shift, and go to state 61
+    AND            shift, and go to state 62
+    OR             shift, and go to state 63
+    END            shift, and go to state 69
 
 
 State 51
 
-   32 boolean_expression: NOT boolean_expression •
+   21 assignment: ID ASSIGN boolean_expression • END
 
-    $default  reduce using rule 32 (boolean_expression)
+    END  shift, and go to state 70
 
 
 State 52
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   29 factor: OPEN_PARENTHESIS expression • CLOSE_PARENTHESIS
+   33 boolean_expression: NOT boolean_expression •
 
-    PLUS               shift, and go to state 53
-    MINUS              shift, and go to state 54
-    CLOSE_PARENTHESIS  shift, and go to state 69
+    $default  reduce using rule 33 (boolean_expression)
 
 
 State 53
 
-   22 expression: expression PLUS • term
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   30 factor: OPEN_PARENTHESIS expression • CLOSE_PARENTHESIS
 
-    NUM               shift, and go to state 35
-    OPEN_PARENTHESIS  shift, and go to state 37
-    ID                shift, and go to state 40
-
-    term    go to state 70
-    factor  go to state 43
+    PLUS               shift, and go to state 54
+    MINUS              shift, and go to state 55
+    CLOSE_PARENTHESIS  shift, and go to state 71
 
 
 State 54
 
-   23 expression: expression MINUS • term
+   23 expression: expression PLUS • term
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
     ID                shift, and go to state 40
 
-    term    go to state 71
+    term    go to state 72
     factor  go to state 43
 
 
 State 55
 
-   33 boolean_expression: expression EQUAL • expression
+   24 expression: expression MINUS • term
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
     ID                shift, and go to state 40
 
-    expression  go to state 72
-    term        go to state 42
-    factor      go to state 43
+    term    go to state 73
+    factor  go to state 43
 
 
 State 56
 
-   37 boolean_expression: expression LESS • expression
-
-    NUM               shift, and go to state 35
-    OPEN_PARENTHESIS  shift, and go to state 37
-    ID                shift, and go to state 40
-
-    expression  go to state 73
-    term        go to state 42
-    factor      go to state 43
-
-
-State 57
-
-   38 boolean_expression: expression GREATER • expression
+   34 boolean_expression: expression EQUAL • expression
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
@@ -731,9 +731,9 @@ State 57
     factor      go to state 43
 
 
-State 58
+State 57
 
-   34 boolean_expression: expression LESS_EQUAL • expression
+   38 boolean_expression: expression LESS • expression
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
@@ -744,9 +744,9 @@ State 58
     factor      go to state 43
 
 
-State 59
+State 58
 
-   36 boolean_expression: expression NOT_EQUAL • expression
+   39 boolean_expression: expression GREATER • expression
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
@@ -757,9 +757,9 @@ State 59
     factor      go to state 43
 
 
-State 60
+State 59
 
-   35 boolean_expression: expression GREATER_EQUAL • expression
+   35 boolean_expression: expression LESS_EQUAL • expression
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
@@ -770,9 +770,9 @@ State 60
     factor      go to state 43
 
 
-State 61
+State 60
 
-   40 boolean_expression: expression AND • expression
+   37 boolean_expression: expression NOT_EQUAL • expression
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
@@ -783,9 +783,9 @@ State 61
     factor      go to state 43
 
 
-State 62
+State 61
 
-   39 boolean_expression: expression OR • expression
+   36 boolean_expression: expression GREATER_EQUAL • expression
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
@@ -796,235 +796,268 @@ State 62
     factor      go to state 43
 
 
-State 63
+State 62
 
-   25 term: term MULTIPLY • factor
+   41 boolean_expression: expression AND • expression
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
     ID                shift, and go to state 40
 
-    factor  go to state 80
+    expression  go to state 80
+    term        go to state 42
+    factor      go to state 43
+
+
+State 63
+
+   40 boolean_expression: expression OR • expression
+
+    NUM               shift, and go to state 35
+    OPEN_PARENTHESIS  shift, and go to state 37
+    ID                shift, and go to state 40
+
+    expression  go to state 81
+    term        go to state 42
+    factor      go to state 43
 
 
 State 64
 
-   26 term: term DIVIDE • factor
+   26 term: term MULTIPLY • factor
 
     NUM               shift, and go to state 35
     OPEN_PARENTHESIS  shift, and go to state 37
     ID                shift, and go to state 40
 
-    factor  go to state 81
+    factor  go to state 82
 
 
 State 65
 
-   42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS • OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
-   43           | IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS • OPEN_BRACKETS assignments CLOSE_BRACKETS
+   27 term: term DIVIDE • factor
 
-    OPEN_BRACKETS  shift, and go to state 82
+    NUM               shift, and go to state 35
+    OPEN_PARENTHESIS  shift, and go to state 37
+    ID                shift, and go to state 40
+
+    factor  go to state 83
 
 
 State 66
+
+   42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS • OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
+   43           | IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS • OPEN_BRACKETS assignments CLOSE_BRACKETS
+
+    OPEN_BRACKETS  shift, and go to state 84
+
+
+State 67
 
    17 read_command: READ OPEN_PARENTHESIS ID CLOSE_PARENTHESIS •
 
     $default  reduce using rule 17 (read_command)
 
 
-State 67
+State 68
 
    18 write_command: WRITE OPEN_PARENTHESIS expression CLOSE_PARENTHESIS •
 
     $default  reduce using rule 18 (write_command)
 
 
-State 68
+State 69
 
    20 assignment: ID ASSIGN expression END •
 
     $default  reduce using rule 20 (assignment)
 
 
-State 69
-
-   29 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS •
-
-    $default  reduce using rule 29 (factor)
-
-
 State 70
 
-   22 expression: expression PLUS term •
-   25 term: term • MULTIPLY factor
-   26     | term • DIVIDE factor
+   21 assignment: ID ASSIGN boolean_expression END •
 
-    MULTIPLY  shift, and go to state 63
-    DIVIDE    shift, and go to state 64
-
-    $default  reduce using rule 22 (expression)
+    $default  reduce using rule 21 (assignment)
 
 
 State 71
 
-   23 expression: expression MINUS term •
-   25 term: term • MULTIPLY factor
-   26     | term • DIVIDE factor
+   30 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS •
 
-    MULTIPLY  shift, and go to state 63
-    DIVIDE    shift, and go to state 64
-
-    $default  reduce using rule 23 (expression)
+    $default  reduce using rule 30 (factor)
 
 
 State 72
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   33 boolean_expression: expression EQUAL expression •
+   23 expression: expression PLUS term •
+   26 term: term • MULTIPLY factor
+   27     | term • DIVIDE factor
 
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
+    MULTIPLY  shift, and go to state 64
+    DIVIDE    shift, and go to state 65
 
-    $default  reduce using rule 33 (boolean_expression)
+    $default  reduce using rule 23 (expression)
 
 
 State 73
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   37 boolean_expression: expression LESS expression •
+   24 expression: expression MINUS term •
+   26 term: term • MULTIPLY factor
+   27     | term • DIVIDE factor
 
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
+    MULTIPLY  shift, and go to state 64
+    DIVIDE    shift, and go to state 65
 
-    $default  reduce using rule 37 (boolean_expression)
+    $default  reduce using rule 24 (expression)
 
 
 State 74
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   38 boolean_expression: expression GREATER expression •
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   34 boolean_expression: expression EQUAL expression •
 
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
-
-    $default  reduce using rule 38 (boolean_expression)
-
-
-State 75
-
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   34 boolean_expression: expression LESS_EQUAL expression •
-
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
+    PLUS   shift, and go to state 54
+    MINUS  shift, and go to state 55
 
     $default  reduce using rule 34 (boolean_expression)
 
 
+State 75
+
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   38 boolean_expression: expression LESS expression •
+
+    PLUS   shift, and go to state 54
+    MINUS  shift, and go to state 55
+
+    $default  reduce using rule 38 (boolean_expression)
+
+
 State 76
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   36 boolean_expression: expression NOT_EQUAL expression •
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   39 boolean_expression: expression GREATER expression •
 
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
+    PLUS   shift, and go to state 54
+    MINUS  shift, and go to state 55
 
-    $default  reduce using rule 36 (boolean_expression)
+    $default  reduce using rule 39 (boolean_expression)
 
 
 State 77
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   35 boolean_expression: expression GREATER_EQUAL expression •
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   35 boolean_expression: expression LESS_EQUAL expression •
 
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
+    PLUS   shift, and go to state 54
+    MINUS  shift, and go to state 55
 
     $default  reduce using rule 35 (boolean_expression)
 
 
 State 78
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   40 boolean_expression: expression AND expression •
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   37 boolean_expression: expression NOT_EQUAL expression •
 
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
+    PLUS   shift, and go to state 54
+    MINUS  shift, and go to state 55
 
-    $default  reduce using rule 40 (boolean_expression)
+    $default  reduce using rule 37 (boolean_expression)
 
 
 State 79
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
-   39 boolean_expression: expression OR expression •
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   36 boolean_expression: expression GREATER_EQUAL expression •
 
-    PLUS   shift, and go to state 53
-    MINUS  shift, and go to state 54
+    PLUS   shift, and go to state 54
+    MINUS  shift, and go to state 55
 
-    $default  reduce using rule 39 (boolean_expression)
+    $default  reduce using rule 36 (boolean_expression)
 
 
 State 80
 
-   25 term: term MULTIPLY factor •
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   41 boolean_expression: expression AND expression •
 
-    $default  reduce using rule 25 (term)
+    PLUS   shift, and go to state 54
+    MINUS  shift, and go to state 55
+
+    $default  reduce using rule 41 (boolean_expression)
 
 
 State 81
 
-   26 term: term DIVIDE factor •
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
+   40 boolean_expression: expression OR expression •
+
+    PLUS   shift, and go to state 54
+    MINUS  shift, and go to state 55
+
+    $default  reduce using rule 40 (boolean_expression)
+
+
+State 82
+
+   26 term: term MULTIPLY factor •
 
     $default  reduce using rule 26 (term)
 
 
-State 82
+State 83
+
+   27 term: term DIVIDE factor •
+
+    $default  reduce using rule 27 (term)
+
+
+State 84
 
    42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS • assignments CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
    43           | IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS • assignments CLOSE_BRACKETS
 
     ID  shift, and go to state 7
 
-    assignments  go to state 83
+    assignments  go to state 85
     assignment   go to state 18
-
-
-State 83
-
-   42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments • CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
-   43           | IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments • CLOSE_BRACKETS
-
-    CLOSE_BRACKETS  shift, and go to state 84
-
-
-State 84
-
-   42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS • ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
-   43           | IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS •
-
-    ELSE  shift, and go to state 85
-
-    $default  reduce using rule 43 (if_command)
 
 
 State 85
 
-   42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE • OPEN_BRACKETS expression CLOSE_BRACKETS
+   42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments • CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
+   43           | IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments • CLOSE_BRACKETS
 
-    OPEN_BRACKETS  shift, and go to state 86
+    CLOSE_BRACKETS  shift, and go to state 86
 
 
 State 86
+
+   42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS • ELSE OPEN_BRACKETS expression CLOSE_BRACKETS
+   43           | IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS •
+
+    ELSE  shift, and go to state 87
+
+    $default  reduce using rule 43 (if_command)
+
+
+State 87
+
+   42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE • OPEN_BRACKETS expression CLOSE_BRACKETS
+
+    OPEN_BRACKETS  shift, and go to state 88
+
+
+State 88
 
    42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE OPEN_BRACKETS • expression CLOSE_BRACKETS
 
@@ -1032,23 +1065,23 @@ State 86
     OPEN_PARENTHESIS  shift, and go to state 37
     ID                shift, and go to state 40
 
-    expression  go to state 87
+    expression  go to state 89
     term        go to state 42
     factor      go to state 43
 
 
-State 87
+State 89
 
-   22 expression: expression • PLUS term
-   23           | expression • MINUS term
+   23 expression: expression • PLUS term
+   24           | expression • MINUS term
    42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE OPEN_BRACKETS expression • CLOSE_BRACKETS
 
-    PLUS            shift, and go to state 53
-    MINUS           shift, and go to state 54
-    CLOSE_BRACKETS  shift, and go to state 88
+    PLUS            shift, and go to state 54
+    MINUS           shift, and go to state 55
+    CLOSE_BRACKETS  shift, and go to state 90
 
 
-State 88
+State 90
 
    42 if_command: IF OPEN_PARENTHESIS boolean_expression CLOSE_PARENTHESIS OPEN_BRACKETS assignments CLOSE_BRACKETS ELSE OPEN_BRACKETS expression CLOSE_BRACKETS •
 
